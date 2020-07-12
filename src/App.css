@@ -1,10 +1,105 @@
-.App {
-  text-align: center;
+:root {
+  --primary:26, 92, 255;
+  --theme-bg:#18191c;
+  --theme-color:#fff;
+  --theme-layout:#1e2023;
+  --theme-bg2:#141417;
+  --theme-code:#141417;
+  --theme-code2:#161619
 }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap');
+body{font-family: 'Poppins', sans-serif!important;}
+.title{font-family: 'Poppins', sans-serif;font-weight: 700;}
+.poppins{font-family: 'Poppins', sans-serif;}
+.primary{background-color: rgba(var(--primary),1)!important;}
+.btn{
+  box-shadow: 0 10px 20px -10px rgba(var(--primary),.5);
+  border-radius:17px;
+  transition: all .25s ease;
+}
+.btn:hover {
+    box-shadow: 0 20px 20px -10px rgba(var(--primary),.5);
+    transform: translateY(-5px);
+}
+.card{box-shadow: 0 10px 30px -5px rgba(0,0,0,.2)!important;border-radius:40px}
+.card .circle{width:40px;height:40px}
+.card .circle img{height:30px;margin:5px}
+.shadow-city{filter: drop-shadow(1px 1px 6px #08d6ac)}
+.shadow-road-from{filter: drop-shadow(1px 1px 6px #d5cdf0)}
+.shadow-road-to{filter: drop-shadow(1px 1px 6px #ff5665)}
+.shadow-type{filter: drop-shadow(2px 2px 8px #dea861)}
+.cards-container{
+  display: inline-block;
+  flex-direction: row;
+  align-items: center;
+}
+.float-card{
+  float: left;
+  background:white;
+  width: 320px;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 10px 30px -5px rgba(0,0,0,.2);
+  border-radius: 40px;
+  padding: 0 20px 20px;
+  transition: all .25s ease;
+  margin: 20px;
+  cursor:pointer;
+}
+.float-card:hover {
+  background: rgba(var(--primary),1);
+  box-shadow: 0 10px 30px -5px rgba(var(--primary),.4);
+  transform: translateY(-10px);
+  color: #fff;
+}
+.order-icon{
+  max-width: 12rem;
+  margin-top: -40px;
+  z-index: 100;
+  position: relative;
+}
+.progress .determinate{background-color: #1a5cff!important;}
+.progress{background-color:#9dbaff!important;}
 
+input.valid:not([type]), input.valid:not([type]):focus, input.valid[type=text]:not(.browser-default), input.valid[type=text]:not(.browser-default):focus, input.valid[type=password]:not(.browser-default), input.valid[type=password]:not(.browser-default):focus, input.valid[type=email]:not(.browser-default), input.valid[type=email]:not(.browser-default):focus, input.valid[type=url]:not(.browser-default), input.valid[type=url]:not(.browser-default):focus, input.valid[type=time]:not(.browser-default), input.valid[type=time]:not(.browser-default):focus, input.valid[type=date]:not(.browser-default), input.valid[type=date]:not(.browser-default):focus, input.valid[type=datetime]:not(.browser-default), input.valid[type=datetime]:not(.browser-default):focus, input.valid[type=datetime-local]:not(.browser-default), input.valid[type=datetime-local]:not(.browser-default):focus, input.valid[type=tel]:not(.browser-default), input.valid[type=tel]:not(.browser-default):focus, input.valid[type=number]:not(.browser-default), input.valid[type=number]:not(.browser-default):focus, input.valid[type=search]:not(.browser-default), input.valid[type=search]:not(.browser-default):focus, textarea.materialize-textarea.valid, textarea.materialize-textarea.valid:focus, .select-wrapper.valid > input.select-dropdown{
+  box-shadow:none !important;
+  font-weight:800!important;
+  font-size:2.5rem!important;
+  height:4rem!important;
+}
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea{
+  box-shadow:none!important;
+  font-weight:800!important;
+  font-size:2.5rem!important;
+  height:4rem!important;
+}
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]){
+  box-shadow:none!important;
+  font-weight:800!important;
+  font-size:2.5rem!important;
+  height:4rem!important;
+}
+.no-margin{
+  margin:0;
+}
+nav{box-shadow: none !important}
+.modal-confirmation{
+  min-height:60vh;
+  margin: auto !important;
+  width: 95% !important;
+  border-radius: 20px 20px 0px 0 !important;
+}
+.progress .indeterminate{background-color: rgba(var(--primary),1)!important}
+.App {
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+    text-align: center;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -14,14 +109,13 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color:white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /*font-size: calc(10px + 2vmin);*/
+  color:black;
 }
 
 .App-link {
