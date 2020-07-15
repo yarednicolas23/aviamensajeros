@@ -12,6 +12,7 @@ body{font-family: 'Poppins', sans-serif!important;}
 .title{font-family: 'Poppins', sans-serif;font-weight: 700;}
 .poppins{font-family: 'Poppins', sans-serif;}
 .primary{background-color: rgba(var(--primary),1)!important;}
+.full-screen{min-height:80vh}
 .btn{
   box-shadow: 0 10px 20px -10px rgba(var(--primary),.5);
   border-radius:17px;
@@ -19,7 +20,7 @@ body{font-family: 'Poppins', sans-serif!important;}
 }
 .btn:hover {
     box-shadow: 0 20px 20px -10px rgba(var(--primary),.5);
-    transform: translateY(-5px);
+    transform: translateY(-1px);
 }
 .card{box-shadow: 0 10px 30px -5px rgba(0,0,0,.2)!important;border-radius:40px}
 .card .circle{width:40px;height:40px}
@@ -28,6 +29,8 @@ body{font-family: 'Poppins', sans-serif!important;}
 .shadow-road-from{filter: drop-shadow(1px 1px 6px #d5cdf0)}
 .shadow-road-to{filter: drop-shadow(1px 1px 6px #ff5665)}
 .shadow-type{filter: drop-shadow(2px 2px 8px #dea861)}
+.shadow-moto{filter: drop-shadow(2px 2px 8px #d5cdf0)}
+.shadow-courier{filter: drop-shadow(2px 2px 8px #1b212f);height:45px!important}
 .cards-container{
   display: inline-block;
   flex-direction: row;
@@ -64,7 +67,7 @@ body{font-family: 'Poppins', sans-serif!important;}
 }
 .progress .determinate{background-color: #1a5cff!important;}
 .progress{background-color:#9dbaff!important;}
-
+iframe{border:0}
 input.valid:not([type]), input.valid:not([type]):focus, input.valid[type=text]:not(.browser-default), input.valid[type=text]:not(.browser-default):focus, input.valid[type=password]:not(.browser-default), input.valid[type=password]:not(.browser-default):focus, input.valid[type=email]:not(.browser-default), input.valid[type=email]:not(.browser-default):focus, input.valid[type=url]:not(.browser-default), input.valid[type=url]:not(.browser-default):focus, input.valid[type=time]:not(.browser-default), input.valid[type=time]:not(.browser-default):focus, input.valid[type=date]:not(.browser-default), input.valid[type=date]:not(.browser-default):focus, input.valid[type=datetime]:not(.browser-default), input.valid[type=datetime]:not(.browser-default):focus, input.valid[type=datetime-local]:not(.browser-default), input.valid[type=datetime-local]:not(.browser-default):focus, input.valid[type=tel]:not(.browser-default), input.valid[type=tel]:not(.browser-default):focus, input.valid[type=number]:not(.browser-default), input.valid[type=number]:not(.browser-default):focus, input.valid[type=search]:not(.browser-default), input.valid[type=search]:not(.browser-default):focus, textarea.materialize-textarea.valid, textarea.materialize-textarea.valid:focus, .select-wrapper.valid > input.select-dropdown{
   box-shadow:none !important;
   font-weight:800!important;

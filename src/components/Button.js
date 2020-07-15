@@ -12,6 +12,7 @@ import money from './../assets/money.svg'
 export default class Button extends React.Component{
   constructor(props){
     super(props)
+    this.props=props
   }
   getImg(title){
     if (this.props.title==='Liviano'){return motorcycle}

@@ -6,8 +6,9 @@ export default class Administrator extends React.Component {
   }
   componentDidMount(){
     this.props.database.ref('order').on('value',(snap)=>{
-      console.log(snap.val());
+      console.log(snap.val())
       this.state.list=[]
+      //this.setState({list:{}})
       snap.forEach((childSnapshot)=> {
         var childKey = childSnapshot.key;
         var childData = childSnapshot.val();
@@ -45,7 +46,7 @@ export default class Administrator extends React.Component {
                   <td>{order.package}</td>
                   <td>{order.pay}</td>
                   <td>{order.paymentoffer}</td>
-                  <td><a onClick={()=>this.takeOrder(order)} className="btn primary waves-effect">Tomar</a></td>
+                  <td><button onClick={()=>this.takeOrder(order)} className="btn primary waves-effect">Tomar</button></td>
                 </tr>
               )
             }

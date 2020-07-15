@@ -3,8 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useHistory
+  Link
 } from "react-router-dom"
 import 'materialize-css/dist/css/materialize.min.css'
 import 'materialize-css'
@@ -22,6 +21,7 @@ import PaymentOffer from './components/PaymentOffer'
 import Resume from './components/Resume'
 
 import Administrator from './containers/Administrator'
+import Home from './containers/Home'
 
 const firebaseConfig = {
   apiKey: "AIzaSyCSLYO-Jw0oJTlsxbX4GykyE-j2hIKhg6s",
@@ -37,8 +37,7 @@ firebase.initializeApp(firebaseConfig)
 var database = firebase.database()
 
 function App() {
-  let history = useHistory();
-  const [step, setStep] = useState(0)
+  const [step] = useState(0)
   const [road,setRoad] = useState({
     from:{address:"",task:""},
     to:{address:"",task:""}
@@ -56,8 +55,12 @@ function App() {
 
         { /* looks through its children <Route>s and renders the first one that matches the current URL. */ }
         <Switch>
+          <Route exact path="/">
+            <Home/>
+          </Route>
           <Route path="/type">
             <header className="container">
+              <Progress step={step}/>
               <Type/>
             </header>
           </Route>
@@ -106,5 +109,14 @@ function App() {
     </Router>
   );
 }
-
+function Progress(props){
+  return(
+    <div>
+      <h5 className="poppins grey-text text-darken-2">Paso {props.step} de 8</h5>
+      <div className="progress">
+        <div className="determinate" style={{width:props.step*1.25*10+'%'}}></div>
+      </div>
+    </div>
+  )
+}
 export default App;

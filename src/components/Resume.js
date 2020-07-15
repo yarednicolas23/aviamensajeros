@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import {
-  useHistory
-} from "react-router-dom"
+import React from 'react'
+//import {useHistory} from "react-router-dom"
 import M from 'materialize-css'
+import UserForm from './UserForm'
+import CourierView from './CourierView'
 
 import motorcycle from './../assets/motorcycle.svg'
 import moverTruck from './../assets/mover-truck.svg'
@@ -14,6 +14,7 @@ import calendar from './../assets/delivery-24.svg'
 import money from './../assets/money.svg'
 import location from './../assets/location.svg'
 import distance from './../assets/distance.svg'
+import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
 
 function getImg(title){
   if (title==='Liviano'){return motorcycle}
@@ -40,15 +41,26 @@ export default class PaymentOffer extends React.Component{
         paymentoffer:localStorage.getItem('paymentoffer'),
         city:localStorage.getItem('city'),
         road:JSON.parse(localStorage.getItem('road')),
-        courier:0
+        courier:0,
+        user:0
+      },
+      user:{
+        email:"",
+        name:"",
+        phone:""
+      },
+      courier:{
+        email:"",
+        name:"",
+        phone:""
       },
       key:'',
-      loader:true
+      loader:{order:true,user:false}
     }
   }
   componentDidMount(){
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems);
+    var elems = document.querySelectorAll('.modal')
+    M.Modal.init(elems)
   }
   //const [paymentOffer,setPaymentOffer]= useState(null)
   //let history = useHistory();
@@ -58,20 +70,42 @@ export default class PaymentOffer extends React.Component{
   }*/
   writeOrderData() {
     this.props.database.ref('order/').push(this.state.order).then((snap)=>{this.setState({key:snap.key});this.watchOrder()})
-
   }
   watchOrder(){
     var instance = M.Modal.getInstance(document.getElementById('orderConfirmation'))
     instance.open()
-    if (this.state.key!='') {
-      console.log(this.state.key);
+    if (this.state.key!=='') {
+      //document.location.href=document.location.href+"?"+this.state.key
+      //console.log(this.state.key);
       this.props.database.ref('order/'+this.state.key).on('value',(snap)=>{
-        console.log(snap.val())
-        if (snap.val().courier!=0) {
-          this.setState({loader:false})
+        //console.log(snap.val())
+        if (snap.val().courier!==0) {
+          this.getCourier(snap.val().courier)
+          this.state.order.courier=snap.val().courier
+          this.state.loader.order=false
+          this.setState(this.state)
         }
       })
     }
+  }
+  getCourier(id){
+    this.props.database.ref('courier/'+id).on('value',(snapshot)=>{
+      if(snapshot.val()!==null) {
+        this.state.courier={mail:snapshot.val().mail,name:snapshot.val().name,phone:snapshot.val().phone}
+        this.setState(this.state)
+      }
+    })
+  }
+  getUser(){
+    this.props.database.ref('user/').push(this.state.order).then((snap)=>{this.setState({key:snap.key});this.watchOrder()})
+  }
+  setUser=(user)=>{
+    this.setState({user:user})
+    this.state.order.user=user.phone
+    var instance = M.Modal.getInstance(document.getElementById("preorder"))
+    instance.close()
+    M.Modal.getInstance(document.getElementById("orderConfirmation")).open()
+    this.writeOrderData()
   }
   render(){
     return(
@@ -125,7 +159,7 @@ export default class PaymentOffer extends React.Component{
           <div className="row">
             <div className="card col s12">
               <div className="card-content">
-                <div className="row">
+                <div className="row hide">
                   <div className="col s2">
                     <div className="circle">
                       <img className="responsive-img shadow-type" src={getImg(this.state.order.type)} alt={this.state.order.type}/>
@@ -144,7 +178,7 @@ export default class PaymentOffer extends React.Component{
                   </div>
                   <div className="col s10">
                     <h5 className="no-margin">{this.state.order.package}</h5>
-                    <span className="grey-text text-darken-2">Paquete</span>
+                    <span className="grey-text text-darken-2">Paquete {this.state.order.package==='Caja'?'maximo de 50x50x50 cm':''}</span>
                   </div>
                 </div>
                 <div className="row">
@@ -163,9 +197,32 @@ export default class PaymentOffer extends React.Component{
           </div>
         </div>
         <div className="col s12 l6">
-          <div className="row">
+          {
+            this.state.order.courier!==0?
+            <div className="row">
+              <div className="col s12">
+                <div className="card">
+                  <div className="card-content">
+                    <div className="row">
+                      <div className="col s2">
+                        <div className="circle">
+                          <img className="responsive-img shadow-courier" src={courier} alt={"foto del mensajero"}/>
+                        </div>
+                      </div>
+                      <div className="col s6">
+                        <h5 className="no-margin">{this.state.courier.name}</h5>
+                        <span className="grey-text text-darken-2">Mensajero</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            :null
+          }
+          <div className="row no-margin">
             <div className="col s12">
-              <iframe className="col s12" height="300" src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d31814.48123130295!2d-74.13359700564403!3d4.627934234833798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x8e3f99a3b6aa0d79%3A0xfae1b01aa8483257!2zQ2wuIDE5ICM0LTUyLCBCb2dvdMOh!3m2!1d4.6041937!2d-74.0694962!4m5!1s0x8e3f9c49227dd81b%3A0x2c1e8f2a7bd9da12!2sCl.%206a%20%2393d-67%2C%20Bogot%C3%A1!3m2!1d4.6522565!2d-74.16267859999999!5e0!3m2!1ses!2sco!4v1594528223617!5m2!1ses!2sco" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+              <iframe className="col s12" height="300" src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d31814.48123130295!2d-74.13359700564403!3d4.627934234833798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x8e3f99a3b6aa0d79%3A0xfae1b01aa8483257!2zQ2wuIDE5ICM0LTUyLCBCb2dvdMOh!3m2!1d4.6041937!2d-74.0694962!4m5!1s0x8e3f9c49227dd81b%3A0x2c1e8f2a7bd9da12!2sCl.%206a%20%2393d-67%2C%20Bogot%C3%A1!3m2!1d4.6522565!2d-74.16267859999999!5e0!3m2!1ses!2sco!4v1594528223617!5m2!1ses!2sco" aria-hidden="false" ></iframe>
             </div>
           </div>
           <div className="row">
@@ -185,8 +242,15 @@ export default class PaymentOffer extends React.Component{
                   </div>
                   <div className="row">
                     <div className="col s12">
-                      <a onClick={()=>this.writeOrderData()} className="col s12 btn primary waves-effect waves-light">Confirmar servicio</a></div>
+                      <a onClick={()=>this.writeOrderData()} className="hide col s12 btn primary waves-effect waves-light">Confirmar servicio</a>
+                      {
+                        this.state.order.courier==0?
+                        <a data-target="preorder" className="col s12 btn primary modal-trigger waves-effect waves-light">Confirmar servicio</a>
+                        :
+                        null
+                      }
                     </div>
+                  </div>
                   <div className="row hide">
                     <div className="col s2">
                       <div className="circle">
@@ -214,9 +278,26 @@ export default class PaymentOffer extends React.Component{
             </div>
           </div>
         </div>
+        <div id="preorder" className="modal bottom-sheet modal-confirmation">
+          {
+            this.state.loader.user?
+            <div className="modal-content">
+              <h4>Espere un momento</h4>
+              <p>Un mensajero tomara su pedido en un momento</p>
+              <div className="progress">
+                <div className="indeterminate"></div>
+              </div>
+            </div>
+            :
+            <div className="modal-content">
+              <h4>Por favor confirmenos sus datos de contacto</h4>
+              <UserForm setUser={this.setUser} firebase={this.props.database}/>
+            </div>
+          }
+        </div>
         <div id="orderConfirmation" className="modal bottom-sheet modal-confirmation">
           {
-            this.state.loader?
+            this.state.loader.order?
             <div className="modal-content">
               <h4>Espere un momento</h4>
               <p>Un mensajero tomara su pedido en un momento</p>
