@@ -1,8 +1,8 @@
 import React from 'react'
-//import {useHistory} from "react-router-dom"
+import { withRouter } from "react-router"
+
 import M from 'materialize-css'
 import UserForm from './UserForm'
-import CourierView from './CourierView'
 
 import motorcycle from './../assets/motorcycle.svg'
 import moverTruck from './../assets/mover-truck.svg'
@@ -29,7 +29,9 @@ function getImg(title){
   if (title==='location'){return location}
   if (title==='distance'){return distance}
 }
-export default class PaymentOffer extends React.Component{
+
+
+class PaymentOffer extends React.Component{
   constructor(props){
     super(props)
     this.state={
@@ -54,6 +56,9 @@ export default class PaymentOffer extends React.Component{
         name:"",
         phone:""
       },
+      count:1,
+      suggets:false,
+      undo:false,
       key:'',
       loader:{order:true,user:false}
     }
@@ -61,29 +66,33 @@ export default class PaymentOffer extends React.Component{
   componentDidMount(){
     var elems = document.querySelectorAll('.modal')
     M.Modal.init(elems)
+    const id = this.props.match.params.order
+    if (id!=null) {
+      this.state.key=id
+      this.watchOrder()
+    }
   }
-  //const [paymentOffer,setPaymentOffer]= useState(null)
-  //let history = useHistory();
-  /*
-  const go = ()=>{
-     history.push("/package")
-  }*/
+
   writeOrderData() {
-    this.props.database.ref('order/').push(this.state.order).then((snap)=>{this.setState({key:snap.key});this.watchOrder()})
+    this.props.database.ref('order/').push(this.state.order).then((snap)=>{this.setState({key:snap.key});this.goToOrder(snap.key);this.watchOrder()})
   }
+  goToOrder = e => {
+    this.props.history.push("/resume/"+e);
+  };
   watchOrder(){
     var instance = M.Modal.getInstance(document.getElementById('orderConfirmation'))
     instance.open()
-    if (this.state.key!=='') {
-      //document.location.href=document.location.href+"?"+this.state.key
-      //console.log(this.state.key);
+    this.countDown()
+    if (this.state.key!=null) {
       this.props.database.ref('order/'+this.state.key).on('value',(snap)=>{
-        //console.log(snap.val())
-        if (snap.val().courier!==0) {
-          this.getCourier(snap.val().courier)
-          this.state.order.courier=snap.val().courier
-          this.state.loader.order=false
-          this.setState(this.state)
+        if (snap.val()!=null) {
+          if (snap.val().courier!==0) {
+            this.getCourier(snap.val().courier)
+            this.state.order=snap.val()
+            this.state.loader.order=false
+            this.setState(this.state)
+            instance.close()
+          }
         }
       })
     }
@@ -97,7 +106,12 @@ export default class PaymentOffer extends React.Component{
     })
   }
   getUser(){
-    this.props.database.ref('user/').push(this.state.order).then((snap)=>{this.setState({key:snap.key});this.watchOrder()})
+    this.props.database.ref('user/')
+    .push(this.state.order)
+    .then((snap)=>{
+      this.setState({key:snap.key})
+      this.watchOrder()
+    })
   }
   setUser=(user)=>{
     this.setState({user:user})
@@ -107,16 +121,40 @@ export default class PaymentOffer extends React.Component{
     M.Modal.getInstance(document.getElementById("orderConfirmation")).open()
     this.writeOrderData()
   }
+  showSuggets(){
+    this.setState({suggets:!this.state.suggets})
+  }
+  countDown(){
+    this.interval = setInterval(() => {
+      if (this.state.count>0) {
+        this.setState({count:this.state.count- 1})
+      }else {
+        this.showSuggets()
+        clearInterval(this.interval)
+      }
+    }, 1000)
+  }
+  updatePaymentOffer(offer){
+    this.state.order.paymentoffer=parseInt(this.state.order.paymentoffer)+offer
+    this.state.order.paymentoffer=this.state.order.paymentoffer.toString()
+    this.state.undo=true
+    this.props.database.ref('order/'+this.state.key).set(this.state.order)
+    this.setState(this.state)
+  }
+  undoPaymentOffer(){
+    this.state.order.paymentoffer=localStorage.getItem('paymentoffer')
+    this.state.undo=false
+    this.props.database.ref('order/'+this.state.key).set(this.state.order)
+    this.setState(this.state)
+  }
+  currencyFormat(price){
+    return price.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
   render(){
     return(
       <div className="row">
         <h4 className="poppins grey-text text-darken-3">Resumen del pedido:</h4>
         <div className="col s12 l6">
-          <div className="col s6 l3 center hide">
-            <img className="responsive-img" src={getImg(this.state.order.pay)} alt={this.state.order.pay}/>
-            <h6 className="no-margin grey-text"><b>Pago {this.state.order.pay}:</b></h6>
-            <h6 className="poppins">${this.state.order.paymentoffer}</h6>
-          </div>
           <div className="row">
             <div className="card col s12">
               <div className="card-content">
@@ -159,17 +197,6 @@ export default class PaymentOffer extends React.Component{
           <div className="row">
             <div className="card col s12">
               <div className="card-content">
-                <div className="row hide">
-                  <div className="col s2">
-                    <div className="circle">
-                      <img className="responsive-img shadow-type" src={getImg(this.state.order.type)} alt={this.state.order.type}/>
-                    </div>
-                  </div>
-                  <div className="col s6">
-                    <h5 className="no-margin">{this.state.order.type}</h5>
-                    <span className="grey-text text-darken-2">Tipo</span>
-                  </div>
-                </div>
                 <div className="row">
                   <div className="col s2">
                     <div className="circle">
@@ -236,43 +263,21 @@ export default class PaymentOffer extends React.Component{
                       </div>
                     </div>
                     <div className="col s6">
-                      <h5 className="no-margin">{this.state.order.paymentoffer}</h5>
+                      <h5 className="no-margin">{this.currencyFormat(this.state.order.paymentoffer)}</h5>
                       <span className="grey-text text-darken-2">{this.state.order.pay}</span>
                     </div>
                   </div>
-                  <div className="row">
-                    <div className="col s12">
-                      <a onClick={()=>this.writeOrderData()} className="hide col s12 btn primary waves-effect waves-light">Confirmar servicio</a>
-                      {
-                        this.state.order.courier==0?
+                  {
+                    this.state.order.courier==0?
+                    <div className="row">
+                      <div className="col s12">
+                        <a onClick={()=>this.writeOrderData()} className="hide col s12 btn primary waves-effect waves-light">Confirmar servicio</a>
                         <a data-target="preorder" className="col s12 btn primary modal-trigger waves-effect waves-light">Confirmar servicio</a>
-                        :
-                        null
-                      }
-                    </div>
-                  </div>
-                  <div className="row hide">
-                    <div className="col s2">
-                      <div className="circle">
-                        <img className="responsive-img shadow-road-from" src={getImg('location')} alt={this.state.order.city}/>
                       </div>
                     </div>
-                    <div className="col s10">
-                      <h5 className="no-margin">{this.state.order.road.from.address}</h5>
-                      <span className="grey-text text-darken-2">Dirección de recogida</span>
-                    </div>
-                  </div>
-                  <div className="row hide">
-                    <div className="col s2">
-                      <div className="circle">
-                        <img className="responsive-img shadow-road-to" src={getImg('distance')} alt={this.state.order.city}/>
-                      </div>
-                    </div>
-                    <div className="col s10">
-                      <h5 className="no-margin">{this.state.order.road.to.address}</h5>
-                      <span className="grey-text text-darken-2">Dirección de entrega</span>
-                    </div>
-                  </div>
+                    :
+                    null
+                  }
                 </div>
               </div>
             </div>
@@ -301,6 +306,39 @@ export default class PaymentOffer extends React.Component{
             <div className="modal-content">
               <h4>Espere un momento</h4>
               <p>Un mensajero tomara su pedido en un momento</p>
+              {
+                this.state.suggets?
+                <div>
+                  <h5>¿Nadie toma el pedido?</h5>
+                  <p>Suba un poco la oferta para este pedido para que un mensajero la tome</p>
+                  <div className="row">
+                    <div className="col s12">
+                      <div className="card">
+                        <div className="card-content">
+                          <div className="row">
+                            <div className="col s12 l1">
+                              <div className="circle">
+                                <img className="responsive-img shadow-city" src={getImg(this.state.order.pay)} alt={this.state.order.paymentoffer}/>
+                              </div>
+                            </div>
+                            <div className="col s12 l2">
+                              <h5 className="no-margin">{this.currencyFormat(this.state.order.paymentoffer)}</h5>
+                              <span className="grey-text text-darken-2">{this.state.order.pay}</span>
+                            </div>
+                            <div className="col s12 l6">
+                              {this.state.undo?<button className="btn-flat" onClick={()=>this.undoPaymentOffer()}>deshacer</button>:null}
+                              <button className="btn primary" onClick={()=>this.updatePaymentOffer(1000)}>$1.000</button>
+                              <button className="btn primary" onClick={()=>this.updatePaymentOffer(2000)}>$2.000</button>
+                              <button className="btn primary" onClick={()=>this.updatePaymentOffer(5000)}>$5.000</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>:
+                null
+              }
               <div className="progress">
                 <div className="indeterminate"></div>
               </div>
@@ -312,10 +350,12 @@ export default class PaymentOffer extends React.Component{
             </div>
           }
           <div className="modal-footer">
-            <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
+            <a href="#!" className="hide modal-close waves-effect waves-green btn-flat">Agree</a>
           </div>
         </div>
       </div>
     )
   }
 }
+
+export default withRouter(PaymentOffer)

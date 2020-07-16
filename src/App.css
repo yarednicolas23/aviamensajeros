@@ -12,6 +12,7 @@ body{font-family: 'Poppins', sans-serif!important;}
 .title{font-family: 'Poppins', sans-serif;font-weight: 700;}
 .poppins{font-family: 'Poppins', sans-serif;}
 .primary{background-color: rgba(var(--primary),1)!important;}
+.primary-text{  color: rgba(var(--primary),1)!important;}
 .full-screen{min-height:80vh}
 .btn{
   box-shadow: 0 10px 20px -10px rgba(var(--primary),.5);
@@ -97,8 +98,23 @@ nav{box-shadow: none !important}
   border-radius: 20px 20px 0px 0 !important;
 }
 .progress .indeterminate{background-color: rgba(var(--primary),1)!important}
-.App {
+.animation{animation: animation 2.75s ease-in-out infinite;}
+.animation-animation{animation: animation-animation 2.75s ease-in-out infinite;}
+@keyframes animation {
+  0%   { transform: translateY(0); }
+  25%  { transform: translateY(-0.6em); }
+  50%  { transform: translateY(0); }
+  75%  { transform: translateY(0.6em); }
+  100% { transform: translateY(0); }
 }
+@keyframes animation-animation {
+  0%   { transform: translateY(0); }
+  25%  { transform: translateY(0.3em); }
+  50%  { transform: translateY(0); }
+  75%  { transform: translateY(-0.3em); }
+  100% { transform: translateY(0); }
+}
+.App{}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

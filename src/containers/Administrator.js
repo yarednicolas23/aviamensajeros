@@ -1,4 +1,27 @@
 import React from 'react'
+import motorcycle from './../assets/motorcycle.svg'
+import moverTruck from './../assets/mover-truck.svg'
+import envelope from './../assets/envelope.svg'
+import box from './../assets/box.svg'
+import globe from './../assets/globe.svg'
+import fastDelivery from './../assets/fast-delivery.svg'
+import calendar from './../assets/delivery-24.svg'
+import money from './../assets/money.svg'
+import location from './../assets/location.svg'
+import distance from './../assets/distance.svg'
+import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
+
+function getImg(title){
+  if (title==='Liviano'){return motorcycle}
+  if (title==='Pesado'){return moverTruck}
+  if (title==='Documentos'){return envelope}
+  if (title==='Caja'){return box}
+  if (title==='Agendar'){return calendar}
+  if (title==='Ahora'){return fastDelivery}
+  if (title==='Bogotá'){return globe}
+  if (title==='Medellín'){return globe}
+  if (title==='Efectivo'){return money}
+}
 export default class Administrator extends React.Component {
   constructor(props){
     super(props)
@@ -25,10 +48,74 @@ export default class Administrator extends React.Component {
     data.key=null
     this.props.database.ref('order/'+id).set(data)
   }
+  currencyFormat(price){
+    return price.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
   onSelect = data => { this.setState(data) }
   render() {
     return (
       <div>
+        <div className="row">
+          {
+            this.state.list.map((order,key)=>
+              <div className="col s12 l6" key={key}>
+                <div className="card">
+                  <div className="card-content">
+
+                  <div className="row">
+                    <div className="col s2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-road-from" src={location} alt={order.city}/>
+                      </div>
+                    </div>
+                    <div className="col s10">
+                      <h6 className="no-margin">{order.road.from.address}</h6>
+                      <span className="grey-text text-darken-2">Dirección de recogida</span>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col s2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-road-to" src={distance} alt={order.city}/>
+                      </div>
+                    </div>
+                    <div className="col s10">
+                      <h6 className="no-margin">{order.road.to.address}</h6>
+                      <span className="grey-text text-darken-2">Dirección de entrega</span>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col s2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-type" src={getImg(order.package)} alt={order.package}/>
+                      </div>
+                    </div>
+                    <div className="col s10">
+                      <h6 className="no-margin">{order.package}</h6>
+                      <span className="grey-text text-darken-2">Paquete {order.package==='Caja'?'maximo de 50x50x50 cm':''}</span>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col s2 l2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-city" src={getImg(order.pay)} alt={order.paymentoffer}/>
+                      </div>
+                    </div>
+                    <div className="col s4 l4">
+                      <h5 className="no-margin">{this.currencyFormat(order.paymentoffer)}</h5>
+                      <span className="grey-text text-darken-2">{order.pay}</span>
+                    </div>
+                    <div className="col s12 l6">
+                      <button onClick={()=>this.takeOrder(order)} className="btn-flat waves-effect col s6">Detalles</button>
+                      <button onClick={()=>this.takeOrder(order)} className="btn primary waves-effect col s6">Tomar</button>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            )
+          }
+        </div>
         <table>
           <thead>
             <tr>
@@ -45,7 +132,7 @@ export default class Administrator extends React.Component {
                 <tr key={key}>
                   <td>{order.package}</td>
                   <td>{order.pay}</td>
-                  <td>{order.paymentoffer}</td>
+                  <td>{this.currencyFormat(order.paymentoffer)}</td>
                   <td><button onClick={()=>this.takeOrder(order)} className="btn primary waves-effect">Tomar</button></td>
                 </tr>
               )

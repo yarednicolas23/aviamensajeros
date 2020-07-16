@@ -94,6 +94,11 @@ function App() {
               <PaymentOffer/>
             </header>
           </Route>
+          <Route path="/resume/:order">
+            <header className="container">
+              <Resume database={database}/>
+            </header>
+          </Route>
           <Route path="/resume">
             <header className="container">
               <Resume database={database}/>

@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link } from "react-router-dom"
-//import motorcycle from './../assets/motor.svg'
+import motorcycle from './../assets/motor.svg'
 import money from './../assets/money.svg'
-import distance from './../assets/distance.svg'
+import location from './../assets/location.svg'
 import shield from './../assets/shield.svg'
 import smartphone from './../assets/smartphone.svg'
+import fastDelivery from './../assets/fast-delivery.svg'
+import envelope from './../assets/envelope.svg'
 //import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
 
 export default class Home extends React.Component {
@@ -20,17 +22,26 @@ export default class Home extends React.Component {
     return (
       <div className="container">
         <div className="row full-screen">
-          <div className="col s12 l8">
-            <h1 className="title">Consiga un mensajero en minutos.</h1>
+          <div className="col s12 l2">
+            <img className="responsive-img shadow-moto animation" src={fastDelivery} alt={"aviamensajeros"}/>
+              <br/><br/><br/><br/><br/><br/>
+            <img className="responsive-img shadow-moto animation-animation" src={motorcycle} alt={"aviamensajeros"}/>
+          </div>
+          <div className="col s12 l8 center">
+            <br/><br/>
+            <h2 className="title">Consiga un mensajero en minutos.</h2>
             <p className="thin">Llevamos, Recogemos, entregamos, pagamos y hacemos lo que necesite.</p>
             <Link to={"package"} className="btn primary">hacer un pedido</Link>
           </div>
-          <div className="col s12 l4">
-            <img className="responsive-img shadow-moto" src={distance} alt={"aviamensajeros"}/>
+          <div className="col s12 l2">
+            <br/><br/><br/>
+            <img className="responsive-img shadow-moto animation" src={envelope} alt={"aviamensajeros"}/>
+            <br/><br/><br/><br/><br/><br/>
+            <img className="responsive-img shadow-moto animation-animation" src={location} alt={"aviamensajeros"}/>
           </div>
         </div>
         <div className="row">
-          <h3 className="title">¿Por qué somos mejores?</h3>
+          <h3 className="title center">¿Por qué somos mejores?</h3>
           <div className="col s12 l4 center">
             <div className="col s6 offset-s3"><img className="responsive-img shadow-moto" src={money} alt={"oferta la tarifa"}/></div>
             <div className="col s12">

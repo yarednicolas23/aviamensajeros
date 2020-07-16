@@ -4,8 +4,13 @@ export default function UserForm(props) {
   const [mail,setMail] = useState('')
   const [name,setName] = useState('')
   const [phone,setPhone] = useState('')
-  const go = ()=>{
+  const [userExist,setUserExist] = useState(false)
+  const go =(event)=>{
+    event.preventDefault()
     const data ={ mail:mail, name:name, phone:phone }
+    if (userExist) {
+      props.firebase.ref('user/'+phone).set(data)
+    }
     props.setUser(data)
   }
   const getUser=(phone)=>{
@@ -14,6 +19,7 @@ export default function UserForm(props) {
         if(snapshot.val()!==null) {
           setName(snapshot.val().name)
           setMail(snapshot.val().mail)
+          setUserExist(true)
         }else {
           setName("")
           setMail("")
@@ -24,7 +30,7 @@ export default function UserForm(props) {
   }
   return(
     <div className="row">
-      <form className="col s12" onSubmit={go} action="javascript:void(0)">
+      <form className="col s12" onSubmit={go}>
         <div className="input-field col s12 l6">
           <input value={phone} onChange={e=>getUser(e.target.value)} id="phone" placeholder="Escriba su teléfono" type="tel" className="validate" required/>
         </div>
