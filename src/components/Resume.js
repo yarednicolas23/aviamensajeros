@@ -1,5 +1,6 @@
 import React from 'react'
 import { withRouter } from "react-router"
+import moment from 'moment'
 
 import M from 'materialize-css'
 import UserForm from './UserForm'
@@ -13,7 +14,12 @@ import fastDelivery from './../assets/fast-delivery.svg'
 import calendar from './../assets/delivery-24.svg'
 import money from './../assets/money.svg'
 import location from './../assets/location.svg'
+import from from './../assets/from.svg'
 import distance from './../assets/distance.svg'
+import timer from './../assets/timer.svg'
+import clock from './../assets/clock.svg'
+import packageDone from './../assets/package-done.svg'
+
 import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
 
 function getImg(title){
@@ -56,7 +62,7 @@ class PaymentOffer extends React.Component{
         name:"",
         phone:""
       },
-      count:1,
+      count:30,
       suggets:false,
       undo:false,
       key:'',
@@ -74,6 +80,7 @@ class PaymentOffer extends React.Component{
   }
 
   writeOrderData() {
+    this.state.order.creation=new Date().toString()
     this.props.database.ref('order/').push(this.state.order).then((snap)=>{this.setState({key:snap.key});this.goToOrder(snap.key);this.watchOrder()})
   }
   goToOrder = e => {
@@ -91,7 +98,7 @@ class PaymentOffer extends React.Component{
             this.state.order=snap.val()
             this.state.loader.order=false
             this.setState(this.state)
-            instance.close()
+            setTimeout(()=> {instance.close()}, 2000)
           }
         }
       })
@@ -153,7 +160,7 @@ class PaymentOffer extends React.Component{
   render(){
     return(
       <div className="row">
-        <h4 className="poppins grey-text text-darken-3">Resumen del pedido:</h4>
+        <h5 className="poppins center">Resumen del pedido:</h5>
         <div className="col s12 l6">
           <div className="row">
             <div className="card col s12">
@@ -172,7 +179,7 @@ class PaymentOffer extends React.Component{
                 <div className="row">
                   <div className="col s2">
                     <div className="circle">
-                      <img className="responsive-img shadow-road-from" src={getImg('location')} alt={this.state.order.city}/>
+                      <img className="responsive-img shadow-road-from" src={from} alt={this.state.order.city}/>
                     </div>
                   </div>
                   <div className="col s10">
@@ -239,6 +246,50 @@ class PaymentOffer extends React.Component{
                       <div className="col s6">
                         <h5 className="no-margin">{this.state.courier.name}</h5>
                         <span className="grey-text text-darken-2">Mensajero</span>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col s2">
+                        <div className="circle">
+                          <img className="responsive-img shadow-road-from" src={clock} alt={"foto del mensajero"}/>
+                        </div>
+                      </div>
+                      <div className="col s6">
+                        <h5 className="no-margin">{moment(this.state.order.creation).format('hh:mm A') }</h5>
+                        <span className="grey-text text-darken-2">Hora del pedido</span>
+                      </div>
+                    </div>
+                    <div className="row opacity-1">
+                      <div className="col s2">
+                        <div className="circle">
+                          <img className="responsive-img shadow-road-from" src={timer} alt={"foto del mensajero"}/>
+                        </div>
+                      </div>
+                      <div className="col s6">
+                        <h5 className="no-margin">{moment(this.state.order.creation).add(20, 'minutes').format('hh:mm A') }</h5>
+                        <span className="grey-text text-darken-2">Hora de llegada</span>
+                      </div>
+                    </div>
+                    <div className="row opacity-2">
+                      <div className="col s2">
+                        <div className="circle">
+                          <img className="responsive-img shadow-road-from" src={motorcycle} alt={"mensajero en camino"}/>
+                        </div>
+                      </div>
+                      <div className="col s6">
+                        <h5 className="no-margin">{this.state.courier.name}</h5>
+                        <span className="grey-text text-darken-2">Pedido en curso</span>
+                      </div>
+                    </div>
+                    <div className="row opacity-3">
+                      <div className="col s2">
+                        <div className="circle">
+                          <img className="responsive-img shadow-yellow" src={packageDone} alt={"foto del mensajero"}/>
+                        </div>
+                      </div>
+                      <div className="col s6">
+                        <h5 className="no-margin">{moment(this.state.order.creation).add(40, 'minutes').format('hh:mm A') }</h5>
+                        <span className="grey-text text-darken-2">Tiempo de entrega</span>
                       </div>
                     </div>
                   </div>
@@ -346,7 +397,7 @@ class PaymentOffer extends React.Component{
             :
             <div className="modal-content">
               <h4>¡Listo! 🛵</h4>
-              <p>Tu pedido fue tomado por el mensajero </p>
+              <p>Tu pedido fue tomado por el mensajero <b>{this.state.courier.name}</b></p>
             </div>
           }
           <div className="modal-footer">

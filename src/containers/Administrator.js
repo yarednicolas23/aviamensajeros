@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import motorcycle from './../assets/motorcycle.svg'
 import moverTruck from './../assets/mover-truck.svg'
 import envelope from './../assets/envelope.svg'
@@ -7,9 +8,9 @@ import globe from './../assets/globe.svg'
 import fastDelivery from './../assets/fast-delivery.svg'
 import calendar from './../assets/delivery-24.svg'
 import money from './../assets/money.svg'
-import location from './../assets/location.svg'
+import from from './../assets/from.svg'
 import distance from './../assets/distance.svg'
-import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
+import clock from './../assets/clock.svg'
 
 function getImg(title){
   if (title==='Liviano'){return motorcycle}
@@ -65,7 +66,7 @@ export default class Administrator extends React.Component {
                   <div className="row">
                     <div className="col s2">
                       <div className="circle">
-                        <img className="responsive-img shadow-road-from" src={location} alt={order.city}/>
+                        <img className="responsive-img shadow-road-from" src={from} alt={order.city}/>
                       </div>
                     </div>
                     <div className="col s10">
@@ -93,6 +94,17 @@ export default class Administrator extends React.Component {
                     <div className="col s10">
                       <h6 className="no-margin">{order.package}</h6>
                       <span className="grey-text text-darken-2">Paquete {order.package==='Caja'?'maximo de 50x50x50 cm':''}</span>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col s2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-purple" src={clock} alt={"hora de creación de la orden"}/>
+                      </div>
+                    </div>
+                    <div className="col s10">
+                      <h6 className="no-margin">{moment(order.creation).format('hh:mm A')}</h6>
+                      <span className="grey-text text-darken-2">Hora de creación</span>
                     </div>
                   </div>
                   <div className="row">

@@ -9,6 +9,7 @@
 }
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap');
 body{font-family: 'Poppins', sans-serif!important;}
+.logo-icon{filter: drop-shadow(2px 1px 6px #dcdcdc);height: 100px;}
 .title{font-family: 'Poppins', sans-serif;font-weight: 700;}
 .poppins{font-family: 'Poppins', sans-serif;}
 .primary{background-color: rgba(var(--primary),1)!important;}
@@ -25,12 +26,14 @@ body{font-family: 'Poppins', sans-serif!important;}
 }
 .card{box-shadow: 0 10px 30px -5px rgba(0,0,0,.2)!important;border-radius:40px}
 .card .circle{width:40px;height:40px}
-.card .circle img{height:30px;margin:5px}
+.card .circle img{height:40px;margin:5px}
 .shadow-city{filter: drop-shadow(1px 1px 6px #08d6ac)}
 .shadow-road-from{filter: drop-shadow(1px 1px 6px #d5cdf0)}
 .shadow-road-to{filter: drop-shadow(1px 1px 6px #ff5665)}
 .shadow-type{filter: drop-shadow(2px 2px 8px #dea861)}
 .shadow-moto{filter: drop-shadow(2px 2px 8px #d5cdf0)}
+.shadow-purple{filter:drop-shadow(1px 1px 6px #a996eb)}
+.shadow-yellow{filter: drop-shadow(2px 2px 8px #dea861)}
 .shadow-courier{filter: drop-shadow(2px 2px 8px #1b212f);height:45px!important}
 .cards-container{
   display: inline-block;
@@ -68,6 +71,9 @@ body{font-family: 'Poppins', sans-serif!important;}
 }
 .progress .determinate{background-color: #1a5cff!important;}
 .progress{background-color:#9dbaff!important;}
+.opacity-1{opacity:0.6}
+.opacity-2{opacity:0.3}
+.opacity-3{opacity:0.2}
 iframe{border:0}
 input.valid:not([type]), input.valid:not([type]):focus, input.valid[type=text]:not(.browser-default), input.valid[type=text]:not(.browser-default):focus, input.valid[type=password]:not(.browser-default), input.valid[type=password]:not(.browser-default):focus, input.valid[type=email]:not(.browser-default), input.valid[type=email]:not(.browser-default):focus, input.valid[type=url]:not(.browser-default), input.valid[type=url]:not(.browser-default):focus, input.valid[type=time]:not(.browser-default), input.valid[type=time]:not(.browser-default):focus, input.valid[type=date]:not(.browser-default), input.valid[type=date]:not(.browser-default):focus, input.valid[type=datetime]:not(.browser-default), input.valid[type=datetime]:not(.browser-default):focus, input.valid[type=datetime-local]:not(.browser-default), input.valid[type=datetime-local]:not(.browser-default):focus, input.valid[type=tel]:not(.browser-default), input.valid[type=tel]:not(.browser-default):focus, input.valid[type=number]:not(.browser-default), input.valid[type=number]:not(.browser-default):focus, input.valid[type=search]:not(.browser-default), input.valid[type=search]:not(.browser-default):focus, textarea.materialize-textarea.valid, textarea.materialize-textarea.valid:focus, .select-wrapper.valid > input.select-dropdown{
   box-shadow:none !important;

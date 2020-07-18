@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:#A996EB;}
+	.st2{fill:#F2EFFA;}
+</style>
+<g>
+	<g>
+		
+			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="266.4884" y1="274.2573" x2="330.909" y2="385.8349" gradientTransform="matrix(1 0 0 -1 0 512)">
+			<stop  offset="0" style="stop-color:#43386B"/>
+			<stop  offset="1" style="stop-color:#7662BD"/>
+		</linearGradient>
+		<path class="st0" d="M392.5,58.6L392.5,58.6L323.7,19l0,0c-27.1-14.4-62-12.3-100.1,9.6c-86.6,50-156.7,184.1-156.7,299.5
+			c0,63.5,21.2,108,54.7,127l0,0.1l62.8,36.3l0.1-0.1c27.6,16.5,63.9,15.3,103.6-7.6c86.6-50,156.7-184.1,156.7-299.5
+			C444.8,122.3,424.6,78.3,392.5,58.6L392.5,58.6z"/>
+		<g transform="matrix(.392 -.92 .92 .392 -34.373 576.059)">
+			
+				<ellipse transform="matrix(-1 2.506977e-06 -2.506977e-06 -1 806.7792 357.7099)" class="st1" cx="403.4" cy="178.9" rx="240.6" ry="136.1"/>
+			
+				<ellipse transform="matrix(-1 2.551155e-06 -2.551155e-06 -1 806.7792 357.7099)" class="st2" cx="403.4" cy="178.9" rx="173.7" ry="98.3"/>
+			
+				<ellipse transform="matrix(-1 2.551154e-06 -2.551154e-06 -1 806.7792 357.7099)" class="st1" cx="403.4" cy="178.9" rx="33.6" ry="19"/>
+		</g>
+		<g>
+			<path class="st1" d="M279.5,289.5V162.6c0-4.7,3.8-8.5,8.5-8.5c4.7,0,8.5,3.8,8.5,8.5v97.3l69.3-40c4.1-2.4,9.3-1,11.7,3.1
+				c2.4,4.1,1,9.3-3.1,11.7L279.5,289.5z"/>
+		</g>
+	</g>
+</g>
+</svg>
