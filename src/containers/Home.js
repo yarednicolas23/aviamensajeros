@@ -40,7 +40,27 @@ export default class Home extends React.Component {
             <img className="responsive-img shadow-moto animation-animation" src={location} alt={"aviamensajeros"}/>
           </div>
         </div>
-        <div className="row">
+        <div className="row full-screen">
+          <h3 className="title center">¿Como funciona?</h3>
+          <div className="col s6 offset-s1">
+          <div className="col s12">
+            <div className="col s1"><i className="material-icons">filter_1</i></div>
+            <div className="col s10"><h5 className="no-margin">Inidique una ruta</h5></div>
+            <div className="col s10"><p className="light">Desde dónde y adónde hay que entregar el paquete.</p></div>
+          </div>
+          <div className="col s12 opacity-1">
+            <div className="col s1"><i className="material-icons">filter_2</i></div>
+            <div className="col s10"><h5 className="no-margin">Ofrezca un precio</h5></div>
+            <div className="col s10"><p className="light">Indica un precio justo que este dispuesto a pagar al repartidor.</p></div>
+          </div>
+          <div className="col s12 opacity-2">
+            <div className="col s1"><i className="material-icons">filter_3</i></div>
+            <div className="col s10"><h5 className="no-margin">Agrege una descripción</h5></div>
+            <div className="col s10"><p className="light">Indica un precio justo que estás dispuesto a pagar al repartidor.</p></div>
+          </div>
+          </div>
+        </div>
+        <div className="row full-screen">
           <h3 className="title center">¿Por qué somos mejores?</h3>
           <div className="col s12 l4 center">
             <div className="col s6 offset-s3"><img className="responsive-img shadow-moto" src={money} alt={"oferta la tarifa"}/></div>

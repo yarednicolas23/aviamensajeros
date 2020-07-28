@@ -20,6 +20,9 @@ import timer from './../assets/timer.svg'
 import clock from './../assets/clock.svg'
 import packageDone from './../assets/package-done.svg'
 
+import whats from './../assets/actions/whatsapp.svg'
+import phone from './../assets/actions/phone.svg'
+
 import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
 
 function getImg(title){
@@ -300,7 +303,7 @@ class PaymentOffer extends React.Component{
           }
           <div className="row no-margin">
             <div className="col s12">
-              <iframe className="col s12" height="300" src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d31814.48123130295!2d-74.13359700564403!3d4.627934234833798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x8e3f99a3b6aa0d79%3A0xfae1b01aa8483257!2zQ2wuIDE5ICM0LTUyLCBCb2dvdMOh!3m2!1d4.6041937!2d-74.0694962!4m5!1s0x8e3f9c49227dd81b%3A0x2c1e8f2a7bd9da12!2sCl.%206a%20%2393d-67%2C%20Bogot%C3%A1!3m2!1d4.6522565!2d-74.16267859999999!5e0!3m2!1ses!2sco!4v1594528223617!5m2!1ses!2sco" aria-hidden="false" ></iframe>
+              <iframe className="col s12" height="300" src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d37572.214214641725!2d-74.07964210190573!3d4.636554128128039!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x8e3f99a3b6aa0d79%3A0xfae1b01aa8483257!2zQ2wuIDE5ICM0LTUyLCBCb2dvdMOh!3m2!1d4.6041943!2d-74.0694958!4m5!1s0x8e3f9af5539e0589%3A0x58f8536449f01c72!2sCentro%20Comercial%20Andino%2C%20Cra.%2011%20%23%2382-71%2C%20Bogot%C3%A1!3m2!1d4.6668522!2d-74.0531033!5e0!3m2!1ses!2sco!4v1595956226216!5m2!1ses!2sco" aria-hidden="false" ></iframe>
             </div>
           </div>
           <div className="row">

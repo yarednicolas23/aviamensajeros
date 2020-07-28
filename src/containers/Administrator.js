@@ -128,7 +128,7 @@ export default class Administrator extends React.Component {
             )
           }
         </div>
-        <table>
+        <table className="hide">
           <thead>
             <tr>
                 <th>Tipo</th>

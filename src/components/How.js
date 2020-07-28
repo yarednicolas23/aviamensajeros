@@ -22,13 +22,13 @@ export default function How(props) {
   const calendar =()=>{
     setOption('date')
     var elems = document.querySelectorAll('.datepicker')
-    var instances = M.Datepicker.init(elems,{onClose:()=>clock(),onSelect:(e)=>setDate(e.toString())})
+    M.Datepicker.init(elems,{onClose:()=>clock(),onSelect:(e)=>setDate(e.toString())})
     var instance = M.Datepicker.getInstance(document.getElementById("picker"))
     instance.open()
   }
   const clock =()=>{
     var elems = document.querySelectorAll('.timepicker')
-    var instances = M.Timepicker.init(elems,{onSelect:function(){setTime(this.hours+" "+this.minutes+" "+this.amOrPm)}})
+    M.Timepicker.init(elems,{onSelect:function(){setTime(this.hours+" "+this.minutes+" "+this.amOrPm)}})
     var instance = M.Timepicker.getInstance(document.getElementById("clock"))
     instance.open()
   }
@@ -37,7 +37,7 @@ export default function How(props) {
       <h3 className="title grey-text text-darken-3">¿Cuando lo llevamos?</h3>
       <div className="cards-container">
         {
-          option=='now'?
+          option==='now'?
           <>
           <Button title="Ahora" handleClick={()=>go("Ahora")} state={props.state}/>
           <Button title="Agendar" handleClick={()=>calendar()} state={props.state}/>
