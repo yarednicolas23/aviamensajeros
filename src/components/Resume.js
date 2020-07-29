@@ -246,9 +246,13 @@ class PaymentOffer extends React.Component{
                           <img className="responsive-img shadow-courier" src={courier} alt={"foto del mensajero"}/>
                         </div>
                       </div>
-                      <div className="col s6">
+                      <div className="col s4 l6">
                         <h5 className="no-margin">{this.state.courier.name}</h5>
                         <span className="grey-text text-darken-2">Mensajero</span>
+                      </div>
+                      <div className="col s6 l4">
+                        <a href={"tel:"+this.state.courier.phone} className="col s6"><img className="responsive-img shadow-action" src={phone} alt={"foto del mensajero"}/></a>
+                        <a href={"https://api.whatsapp.com/send?phone="+this.state.courier.phone+"&text=Hola "+this.state.courier.name+""} className="col s6"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
                       </div>
                     </div>
                     <div className="row">

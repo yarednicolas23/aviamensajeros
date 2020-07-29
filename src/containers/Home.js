@@ -86,7 +86,8 @@ export default class Home extends React.Component {
               <h5 className="grey-text text-darken-2">Ecommerce Empresas</h5>
               <p className="thin grey-text text-darken-1">
               Envío de contratos, cotizaciones, comprobantes, documentos confidenciales o
-              para que su tienda en línea envie a sus usuarios y puedan recibir sus productos el mismo día.
+              para que su tienda en línea envie a sus usuarios y puedan recibir sus productos el mismo
+              <Link to={"administrator"} className="">día.</Link>
               </p>
             </div>
           </div>

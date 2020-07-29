@@ -35,6 +35,7 @@ body{font-family: 'Poppins', sans-serif!important;}
 .shadow-purple{filter:drop-shadow(1px 1px 6px #a996eb)}
 .shadow-yellow{filter: drop-shadow(2px 2px 8px #dea861)}
 .shadow-courier{filter: drop-shadow(2px 2px 8px #1b212f);height:45px!important}
+.shadow-action{filter: drop-shadow(2px 2px 8px #8ce1eb);height:40px!important}
 .cards-container{
   display: inline-block;
   flex-direction: row;
