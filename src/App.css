@@ -1,5 +1,6 @@
 :root {
   --primary:26, 92, 255;
+  --gray:#666;
   --theme-bg:#18191c;
   --theme-color:#fff;
   --theme-layout:#1e2023;
@@ -76,6 +77,7 @@ body{font-family: 'Poppins', sans-serif!important;}
 .opacity-2{opacity:0.3}
 .opacity-3{opacity:0.2}
 iframe{border:0}
+/*
 input.valid:not([type]), input.valid:not([type]):focus, input.valid[type=text]:not(.browser-default), input.valid[type=text]:not(.browser-default):focus, input.valid[type=password]:not(.browser-default), input.valid[type=password]:not(.browser-default):focus, input.valid[type=email]:not(.browser-default), input.valid[type=email]:not(.browser-default):focus, input.valid[type=url]:not(.browser-default), input.valid[type=url]:not(.browser-default):focus, input.valid[type=time]:not(.browser-default), input.valid[type=time]:not(.browser-default):focus, input.valid[type=date]:not(.browser-default), input.valid[type=date]:not(.browser-default):focus, input.valid[type=datetime]:not(.browser-default), input.valid[type=datetime]:not(.browser-default):focus, input.valid[type=datetime-local]:not(.browser-default), input.valid[type=datetime-local]:not(.browser-default):focus, input.valid[type=tel]:not(.browser-default), input.valid[type=tel]:not(.browser-default):focus, input.valid[type=number]:not(.browser-default), input.valid[type=number]:not(.browser-default):focus, input.valid[type=search]:not(.browser-default), input.valid[type=search]:not(.browser-default):focus, textarea.materialize-textarea.valid, textarea.materialize-textarea.valid:focus, .select-wrapper.valid > input.select-dropdown{
   box-shadow:none !important;
   font-weight:800!important;
@@ -94,6 +96,31 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
   font-size:2.5rem!important;
   height:4rem!important;
 }
+*/
+/* label color */
+  .input-field label {
+    color:var(--gray);
+  }
+  /* label focus color */
+  .input-field input[type=text]:focus + label {
+    color:rgba(var(--primary),1);
+  }
+  .input-field input[type=tel]:focus + label {
+    color:rgba(var(--primary),1)!important;
+  }
+  /* label underline focus color */
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid rgba(var(--primary),1)!important;
+    box-shadow: 0 1px 0 0 rgba(var(--primary),1)!important;
+  }
+  .input-field input[type=tel]:focus {
+    border-bottom: 1px solid rgba(var(--primary),1)!important;
+    box-shadow: 0 1px 0 0 rgba(var(--primary),1)!important;
+  }
+  /* icon prefix focus color */
+  .input-field .prefix.active {
+    color:rgba(var(--primary),1);
+  }
 .no-margin{
   margin:0;
 }

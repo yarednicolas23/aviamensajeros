@@ -22,6 +22,10 @@ import Pay from './components/Pay'
 import PaymentOffer from './components/PaymentOffer'
 import Resume from './components/Resume'
 
+import Login from './containers/Login'
+
+import OrderResume from './containers/OrderResume'
+import Orders from './containers/Orders'
 import Administrator from './containers/Administrator'
 import Home from './containers/Home'
 
@@ -106,9 +110,24 @@ function App() {
               <Resume database={database}/>
             </header>
           </Route>
+          <Route path="/courier/orders">
+            <header className="container">
+              <Orders database={database}/>
+            </header>
+          </Route>
+          <Route path="/courier/order/:id">
+            <header className="container">
+              <OrderResume database={database}/>
+            </header>
+          </Route>
           <Route path="/administrator">
             <header className="container">
               <Administrator database={database}/>
+            </header>
+          </Route>
+          <Route path="/login">
+            <header className="container">
+              <Login/>
             </header>
           </Route>
         </Switch>
