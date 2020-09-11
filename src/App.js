@@ -10,9 +10,10 @@ import 'materialize-css'
 import './App.css'
 import * as firebase from "firebase/app"
 import "firebase/database"
-//import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
+import { useCookies } from 'react-cookie'
 
 //import Order from './components/Order'
+import NavBar from './components/NavBar'
 import Type from './components/Type'
 import Package from './components/Package'
 import City from './components/City'
@@ -48,15 +49,19 @@ function App() {
     from:{address:"",task:""},
     to:{address:"",task:""}
   })
+
+
+  const [cookies, setCookie,removeCookie] = useCookies(['user'])
+  console.log(cookies.user)
+  if (cookies.user!=null) {
+    
+  }
+
   return (
     <Router>
       <div>
         <div className="App">
-          <nav className="white col s12">
-            <div className="nav-wrapper container">
-              <Link to="/" className="brand-logo title black-text center">aviamensajeros</Link>
-            </div>
-          </nav>
+          <NavBar/>
         </div>
 
         { /* looks through its children <Route>s and renders the first one that matches the current URL. */ }
@@ -110,24 +115,23 @@ function App() {
               <Resume database={database}/>
             </header>
           </Route>
-          <Route path="/courier/orders">
+          <Route path="/administrator">
             <header className="container">
+              <Administrator database={database}/>
+            </header>
+          </Route>
+          <Route path="/login/courier">
+            <Login/>
+          </Route>
+
+          <Route path="/courier/orders">
+            <header>
               <Orders database={database}/>
             </header>
           </Route>
           <Route path="/courier/order/:id">
             <header className="container">
               <OrderResume database={database}/>
-            </header>
-          </Route>
-          <Route path="/administrator">
-            <header className="container">
-              <Administrator database={database}/>
-            </header>
-          </Route>
-          <Route path="/login">
-            <header className="container">
-              <Login/>
             </header>
           </Route>
         </Switch>
