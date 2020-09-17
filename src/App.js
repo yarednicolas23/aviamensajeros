@@ -10,7 +10,6 @@ import 'materialize-css'
 import './App.css'
 import * as firebase from "firebase/app"
 import "firebase/database"
-import { useCookies } from 'react-cookie'
 
 //import Order from './components/Order'
 import NavBar from './components/NavBar'
@@ -22,12 +21,19 @@ import How from './components/How'
 import Pay from './components/Pay'
 import PaymentOffer from './components/PaymentOffer'
 import Resume from './components/Resume'
+import OrderInCourse from './components/InCourse'
 
 import Login from './containers/Login'
 
+import LoginUser from './user/Login'
+
+import CourierHome from './courier/Home'
+import InCourse from './courier/InCourse'
+
+
 import OrderResume from './containers/OrderResume'
 import Orders from './containers/Orders'
-import Administrator from './containers/Administrator'
+//import Administrator from './containers/Administrator'
 import Home from './containers/Home'
 
 const firebaseConfig = {
@@ -49,13 +55,6 @@ function App() {
     from:{address:"",task:""},
     to:{address:"",task:""}
   })
-
-
-  const [cookies, setCookie,removeCookie] = useCookies(['user'])
-  console.log(cookies.user)
-  if (cookies.user!=null) {
-    
-  }
 
   return (
     <Router>
@@ -105,25 +104,19 @@ function App() {
               <PaymentOffer/>
             </header>
           </Route>
-          <Route path="/resume/:order">
-            <header className="container">
-              <Resume database={database}/>
-            </header>
-          </Route>
           <Route path="/resume">
-            <header className="container">
-              <Resume database={database}/>
-            </header>
+            <Resume database={database}/>
           </Route>
-          <Route path="/administrator">
-            <header className="container">
-              <Administrator database={database}/>
-            </header>
+          <Route path="/incourse/:order">
+            <OrderInCourse database={database}/>
           </Route>
-          <Route path="/login/courier">
+          <Route path="/courier/login">
             <Login/>
           </Route>
 
+          <Route path="/courier/home">
+            <CourierHome/>
+          </Route>
           <Route path="/courier/orders">
             <header>
               <Orders database={database}/>
@@ -133,6 +126,13 @@ function App() {
             <header className="container">
               <OrderResume database={database}/>
             </header>
+          </Route>
+          <Route path="/courier/incourse/:id">
+            <InCourse database={database}/>
+          </Route>
+
+          <Route path="/login">
+            <LoginUser/>
           </Route>
         </Switch>
       </div>

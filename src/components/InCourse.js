@@ -1,9 +1,9 @@
 import React from 'react'
 import { withRouter } from "react-router"
-//import moment from 'moment'
+import moment from 'moment'
 
 import M from 'materialize-css'
-import UserForm from '../components/UserForm'
+import UserForm from './UserForm'
 
 import motorcycle from './../assets/motorcycle.svg'
 import moverTruck from './../assets/mover-truck.svg'
@@ -16,14 +16,14 @@ import money from './../assets/money.svg'
 import location from './../assets/location.svg'
 import from from './../assets/from.svg'
 import distance from './../assets/distance.svg'
-//import timer from './../assets/timer.svg'
-//import clock from './../assets/clock.svg'
-//import packageDone from './../assets/package-done.svg'
+import timer from './../assets/timer.svg'
+import clock from './../assets/clock.svg'
+import packageDone from './../assets/package-done.svg'
 
-//import whats from './../assets/actions/whatsapp.svg'
-//import phone from './../assets/actions/phone.svg'
+import whats from './../assets/actions/whatsapp.svg'
+import phone from './../assets/actions/phone.svg'
 
-//import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
+import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
 
 function getImg(title){
   if (title==='Liviano'){return motorcycle}
@@ -40,7 +40,7 @@ function getImg(title){
 }
 
 
-class OrderResume extends React.Component{
+class InCourse extends React.Component{
   constructor(props){
     super(props)
     this.state={
@@ -75,11 +75,10 @@ class OrderResume extends React.Component{
   componentDidMount(){
     var elems = document.querySelectorAll('.modal')
     M.Modal.init(elems)
-    const id = this.props.match.params.id
-    console.log(id);
+    const id = this.props.match.params.order
     if (id!=null) {
-      this.state.key=id
-      this.watchOrder()
+      this.setState({key:id})
+      this.watchOrder(id)
     }
   }
 
@@ -90,19 +89,21 @@ class OrderResume extends React.Component{
   goToOrder = e => {
     this.props.history.push("/resume/"+e);
   };
-  watchOrder(){
-    var instance = M.Modal.getInstance(document.getElementById('orderConfirmation'))
-    instance.open()
+  watchOrder(id){
     this.countDown()
     if (this.state.key!=null) {
-      this.props.database.ref('order/'+this.state.key).on('value',(snap)=>{
+      var instance = M.Modal.getInstance(document.getElementById('orderConfirmation'))
+      instance.open()
+      this.props.database.ref('order/'+id).on('value',(snap)=>{
         if (snap.val()!=null) {
           if (snap.val().courier!==0) {
-            this.getCourier(snap.val().courier)
             this.state.order=snap.val()
-            this.state.loader.order=false
             this.setState(this.state)
-            setTimeout(()=> {instance.close()}, 2000)
+            if (snap.val().courier!=null) {
+              this.getCourier(snap.val().courier)
+              this.state.loader.order=false
+              setTimeout(()=> {instance.close()}, 2000)
+            }
           }
         }
       })
@@ -164,70 +165,73 @@ class OrderResume extends React.Component{
   render(){
     return(
       <div className="row">
-        <h5 className="poppins center">Resumen del pedido:</h5>
+        <div className="col s12">
+        <h5 className="poppins">Pedido en curso:</h5>
         <div className="col s12 l6">
           <div className="row">
-            <div className="card col s12">
-              <div className="card-content">
-                <div className="row">
-                  <div className="col s2">
-                    <div className="circle">
-                      <img className="responsive-img shadow-city" src={getImg(this.state.order.city)} alt={this.state.order.city}/>
+            <div className="col s12">
+              <div className="card">
+                <div className="card-content">
+                  <div className="row">
+                    <div className="col s2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-city" src={getImg(this.state.order.city)} alt={this.state.order.city}/>
+                      </div>
+                    </div>
+                    <div className="col s6">
+                      <h5 className="no-margin">{this.state.order.city}</h5>
+                      <span className="grey-text text-darken-2">Cuidad</span>
                     </div>
                   </div>
-                  <div className="col s6">
-                    <h5 className="no-margin">{this.state.order.city}</h5>
-                    <span className="grey-text text-darken-2">Cuidad</span>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col s2">
-                    <div className="circle">
-                      <img className="responsive-img shadow-road-from" src={from} alt={this.state.order.city}/>
+                  <div className="row">
+                    <div className="col s2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-road-from" src={from} alt={this.state.order.city}/>
+                      </div>
+                    </div>
+                    <div className="col s10">
+                      <h5 className="no-margin">{this.state.order.road.from.address}</h5>
+                      <span className="grey-text text-darken-2">Dirección de recogida</span>
                     </div>
                   </div>
-                  <div className="col s10">
-                    <h5 className="no-margin">{this.state.order.road.from.address}</h5>
-                    <span className="grey-text text-darken-2">Dirección de recogida</span>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col s2">
-                    <div className="circle">
-                      <img className="responsive-img shadow-road-to" src={getImg('distance')} alt={this.state.order.city}/>
+                  <div className="row">
+                    <div className="col s2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-road-to" src={getImg('distance')} alt={this.state.order.city}/>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col s10">
-                    <h5 className="no-margin">{this.state.order.road.to.address}</h5>
-                    <span className="grey-text text-darken-2">Dirección de entrega</span>
+                    <div className="col s10">
+                      <h5 className="no-margin">{this.state.order.road.to.address}</h5>
+                      <span className="grey-text text-darken-2">Dirección de entrega</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="card col s12">
-              <div className="card-content">
-                <div className="row">
-                  <div className="col s2">
-                    <div className="circle">
-                      <img className="responsive-img shadow-type" src={getImg(this.state.order.package)} alt={this.state.order.package}/>
+            <div className="col s12">
+              <div className="card">
+                <div className="card-content">
+                  <div className="row">
+                    <div className="col s2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-type" src={getImg(this.state.order.package)} alt={this.state.order.package}/>
+                      </div>
+                    </div>
+                    <div className="col s10">
+                      <h5 className="no-margin">{this.state.order.package}</h5>
+                      <span className="grey-text text-darken-2">Paquete {this.state.order.package==='Caja'?'maximo de 50x50x50 cm':''}</span>
                     </div>
                   </div>
-                  <div className="col s10">
-                    <h5 className="no-margin">{this.state.order.package}</h5>
-                    <span className="grey-text text-darken-2">Paquete {this.state.order.package==='Caja'?'maximo de 50x50x50 cm':''}</span>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col s2">
-                    <div className="circle">
-                      <img className="responsive-img shadow-type" src={getImg(this.state.order.when)} alt={this.state.order.when}/>
+                  <div className="row">
+                    <div className="col s2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-type" src={getImg(this.state.order.when)} alt={this.state.order.when}/>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col s10">
-                    <h5 className="no-margin">{this.state.order.when}</h5>
-                    <span className="grey-text text-darken-2">Fecha</span>
+                    <div className="col s10">
+                      <h5 className="no-margin">{this.state.order.when}</h5>
+                      <span className="grey-text text-darken-2">Fecha</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -235,11 +239,77 @@ class OrderResume extends React.Component{
           </div>
         </div>
         <div className="col s12 l6">
-          <div className="row no-margin">
-            <div className="col s12">
-              <iframe className="col s12" height="300" src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d37572.214214641725!2d-74.07964210190573!3d4.636554128128039!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x8e3f99a3b6aa0d79%3A0xfae1b01aa8483257!2zQ2wuIDE5ICM0LTUyLCBCb2dvdMOh!3m2!1d4.6041943!2d-74.0694958!4m5!1s0x8e3f9af5539e0589%3A0x58f8536449f01c72!2sCentro%20Comercial%20Andino%2C%20Cra.%2011%20%23%2382-71%2C%20Bogot%C3%A1!3m2!1d4.6668522!2d-74.0531033!5e0!3m2!1ses!2sco!4v1595956226216!5m2!1ses!2sco" aria-hidden="false" ></iframe>
+          {
+            this.state.order.courier!==0?
+            <div className="row">
+              <div className="col s12">
+                <div className="card">
+                  <div className="card-content">
+                    <div className="row">
+                      <div className="col s2">
+                        <div className="circle">
+                          <img className="responsive-img shadow-courier" src={courier} alt={"foto del mensajero"}/>
+                        </div>
+                      </div>
+                      <div className="col s4 l6">
+                        <h5 className="no-margin">{this.state.courier.name}</h5>
+                        <span className="grey-text text-darken-2">Mensajero</span>
+                      </div>
+                      <div className="col s6 l4">
+                        <a href={"tel:"+this.state.courier.phone} className="col s6"><img className="responsive-img shadow-action" src={phone} alt={"foto del mensajero"}/></a>
+                        <a href={"https://api.whatsapp.com/send?phone="+this.state.courier.phone+"&text=Hola "+this.state.courier.name+""} className="col s6"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col s2">
+                        <div className="circle">
+                          <img className="responsive-img shadow-road-from" src={clock} alt={"foto del mensajero"}/>
+                        </div>
+                      </div>
+                      <div className="col s6">
+                        <h5 className="no-margin">{moment(this.state.order.creation).format('hh:mm A') }</h5>
+                        <span className="grey-text text-darken-2">Hora del pedido</span>
+                      </div>
+                    </div>
+                    <div className="row opacity-1">
+                      <div className="col s2">
+                        <div className="circle">
+                          <img className="responsive-img shadow-road-from" src={timer} alt={"foto del mensajero"}/>
+                        </div>
+                      </div>
+                      <div className="col s6">
+                        <h5 className="no-margin">{moment(this.state.order.creation).add(20, 'minutes').format('hh:mm A') }</h5>
+                        <span className="grey-text text-darken-2">Hora de llegada</span>
+                      </div>
+                    </div>
+                    <div className="row opacity-2">
+                      <div className="col s2">
+                        <div className="circle">
+                          <img className="responsive-img shadow-road-from" src={motorcycle} alt={"mensajero en camino"}/>
+                        </div>
+                      </div>
+                      <div className="col s6">
+                        <h5 className="no-margin">{this.state.courier.name}</h5>
+                        <span className="grey-text text-darken-2">Pedido en curso</span>
+                      </div>
+                    </div>
+                    <div className="row opacity-3">
+                      <div className="col s2">
+                        <div className="circle">
+                          <img className="responsive-img shadow-yellow" src={packageDone} alt={"foto del mensajero"}/>
+                        </div>
+                      </div>
+                      <div className="col s6">
+                        <h5 className="no-margin">{moment(this.state.order.creation).add(40, 'minutes').format('hh:mm A') }</h5>
+                        <span className="grey-text text-darken-2">Tiempo de entrega</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+            :null
+          }
           <div className="row">
             <div className="col s12">
               <div className="card">
@@ -269,9 +339,6 @@ class OrderResume extends React.Component{
                 </div>
               </div>
             </div>
-          </div>
-          <div className="row">
-            <button onClick={()=>this.takeOrder()} className="btn primary waves-effect col s12">Tomar</button>
           </div>
         </div>
         <div id="preorder" className="modal bottom-sheet modal-confirmation">
@@ -336,17 +403,19 @@ class OrderResume extends React.Component{
             </div>
             :
             <div className="modal-content">
-              <h4>¡Listo! 🛵</h4>
-              <p>Tu pedido fue tomado por el mensajero <b>{this.state.courier.name}</b></p>
+              <h4>¡Listo!</h4>
+              <p>Tu pedido fue tomado por el mensajero:</p>
+              <h5><b>{this.state.courier.name}</b></h5>
             </div>
           }
           <div className="modal-footer">
             <a href="#!" className="hide modal-close waves-effect waves-green btn-flat">Agree</a>
           </div>
         </div>
+        </div>
       </div>
     )
   }
 }
 
-export default withRouter(OrderResume)
+export default withRouter(InCourse)

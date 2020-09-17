@@ -22,17 +22,18 @@ export default class Home extends React.Component {
     return (
       <div className="container">
         <div className="row full-screen">
+          <div className="col s12 l8">
+            <br/><br/>
+            <h2 className="title">Consiga un mensajero en minutos.</h2>
+            <p className="thin">Llevamos, recogemos, entregamos, pagamos y hacemos lo que necesite.</p>
+            <Link to={"package"} className="btn primary">hacer un pedido</Link>
+          </div>
           <div className="col s12 l2">
             <img className="responsive-img shadow-moto animation" src={fastDelivery} alt={"aviamensajeros"}/>
               <br/><br/><br/><br/><br/><br/>
             <img className="responsive-img shadow-moto animation-animation" src={motorcycle} alt={"aviamensajeros"}/>
           </div>
-          <div className="col s12 l8 center">
-            <br/><br/>
-            <h2 className="title">Consiga un mensajero en minutos.</h2>
-            <p className="thin">Llevamos, Recogemos, entregamos, pagamos y hacemos lo que necesite.</p>
-            <Link to={"package"} className="btn primary">hacer un pedido</Link>
-          </div>
+
           <div className="col s12 l2">
             <br/><br/><br/>
             <img className="responsive-img shadow-moto animation" src={envelope} alt={"aviamensajeros"}/>
@@ -41,27 +42,27 @@ export default class Home extends React.Component {
           </div>
         </div>
         <div className="row full-screen">
-          <h3 className="title center">¿Como funciona?</h3>
-          <div className="col s6 offset-s1">
+          <h4 className="title">¿Como funciona?</h4>
+          <div className="col s6">
           <div className="col s12">
             <div className="col s1"><i className="material-icons">filter_1</i></div>
-            <div className="col s10"><h5 className="no-margin">Inidique una ruta</h5></div>
+            <div className="col s10"><h6 className="no-margin">Inidique una ruta</h6></div>
             <div className="col s10"><p className="light">Desde dónde y adónde hay que entregar el paquete.</p></div>
           </div>
           <div className="col s12 opacity-1">
             <div className="col s1"><i className="material-icons">filter_2</i></div>
-            <div className="col s10"><h5 className="no-margin">Ofrezca un precio</h5></div>
+            <div className="col s10"><h6 className="no-margin">Ofrezca un precio</h6></div>
             <div className="col s10"><p className="light">Indica un precio justo que este dispuesto a pagar al repartidor.</p></div>
           </div>
           <div className="col s12 opacity-2">
             <div className="col s1"><i className="material-icons">filter_3</i></div>
-            <div className="col s10"><h5 className="no-margin">Agrege una descripción</h5></div>
+            <div className="col s10"><h6 className="no-margin">Agrege una descripción</h6></div>
             <div className="col s10"><p className="light">Indica un precio justo que estás dispuesto a pagar al repartidor.</p></div>
           </div>
           </div>
         </div>
         <div className="row full-screen">
-          <h3 className="title center">¿Por qué somos mejores?</h3>
+          <h4 className="title">¿Por qué somos mejores?</h4>
           <div className="col s12 l4 center">
             <div className="col s6 offset-s3"><img className="responsive-img shadow-moto" src={money} alt={"oferta la tarifa"}/></div>
             <div className="col s12">
@@ -83,11 +84,11 @@ export default class Home extends React.Component {
           <div className="col s12 l4 center">
             <div className="col s6 offset-s3"><img className="responsive-img shadow-moto" src={smartphone} alt={"oferta la tarifa"}/></div>
             <div className="col s12">
-              <h5 className="grey-text text-darken-2">Ecommerce Empresas</h5>
+              <h5 className="grey-text text-darken-2">Ecommerce</h5>
               <p className="thin grey-text text-darken-1">
               Envío de contratos, cotizaciones, comprobantes, documentos confidenciales o
               para que su tienda en línea envie a sus usuarios y puedan recibir sus productos el mismo
-              <Link to={"administrator"} className="">día.</Link>
+              <Link to={"administrator"} className=""> día.</Link>
               </p>
             </div>
           </div>
