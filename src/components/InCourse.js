@@ -19,7 +19,7 @@ import distance from './../assets/distance.svg'
 import timer from './../assets/timer.svg'
 import clock from './../assets/clock.svg'
 import packageDone from './../assets/package-done.svg'
-
+import shield from './../assets/shield.svg'
 import whats from './../assets/actions/whatsapp.svg'
 import phone from './../assets/actions/phone.svg'
 
@@ -233,6 +233,17 @@ class InCourse extends React.Component{
                       <span className="grey-text text-darken-2">Fecha</span>
                     </div>
                   </div>
+                  <div className="row">
+                    <div className="col s2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-city" src={getImg(this.state.order.pay)} alt={this.state.order.paymentoffer}/>
+                      </div>
+                    </div>
+                    <div className="col s6">
+                      <h5 className="no-margin">{this.currencyFormat(this.state.order.paymentoffer)}</h5>
+                      <span className="grey-text text-darken-2">{this.state.order.pay}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -256,8 +267,8 @@ class InCourse extends React.Component{
                         <span className="grey-text text-darken-2">Mensajero</span>
                       </div>
                       <div className="col s6 l4">
-                        <a href={"tel:"+this.state.courier.phone} className="col s6"><img className="responsive-img shadow-action" src={phone} alt={"foto del mensajero"}/></a>
-                        <a href={"https://api.whatsapp.com/send?phone="+this.state.courier.phone+"&text=Hola "+this.state.courier.name+""} className="col s6"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
+                        <a href={"tel:"+this.state.user.phone} className="col s6"><img className="responsive-img shadow-action" src={phone} alt={"foto del mensajero"}/></a>
+                        <a href={"https://api.whatsapp.com/send?phone="+this.state.user.phone+"&text=Hola "+this.state.user.name+""} className="col s6"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
                       </div>
                     </div>
                     <div className="row">
@@ -266,42 +277,73 @@ class InCourse extends React.Component{
                           <img className="responsive-img shadow-road-from" src={clock} alt={"foto del mensajero"}/>
                         </div>
                       </div>
-                      <div className="col s6">
+                      <div className="col s8">
                         <h5 className="no-margin">{moment(this.state.order.creation).format('hh:mm A') }</h5>
                         <span className="grey-text text-darken-2">Hora del pedido</span>
                       </div>
                     </div>
-                    <div className="row opacity-1">
+                    <div className="row">
+                      <div className="col s2">
+                        <div className="circle">
+                          <img className="responsive-img shadow-road-from" src={shield} alt={"foto del mensajero"}/>
+                        </div>
+                      </div>
+                      <div className="col s8">
+                        <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).format('hh:mm A') }</h5>
+                        <span className="grey-text text-darken-2">Hora de tomado por mensajero</span>
+                      </div>
+                      <div className="col s2">
+                        <div className={this.state.order.step>=1?"btn-floating btn-flat green accent-2":"btn-floating btn-flat grey lighten-4"}>
+                          <i className={this.state.order.step>=1?"material-icons green-text":"material-icons grey-text"}>check</i>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={this.state.order.step>=2?"row":"row opacity-1"}>
                       <div className="col s2">
                         <div className="circle">
                           <img className="responsive-img shadow-road-from" src={timer} alt={"foto del mensajero"}/>
                         </div>
                       </div>
-                      <div className="col s6">
-                        <h5 className="no-margin">{moment(this.state.order.creation).add(20, 'minutes').format('hh:mm A') }</h5>
-                        <span className="grey-text text-darken-2">Hora de llegada</span>
+                      <div className="col s8">
+                        <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).add(20, 'minutes').format('hh:mm A') }</h5>
+                        <span className="grey-text text-darken-2">Hora estimada de llegada del mensajero</span>
+                      </div>
+                      <div className="col s2">
+                        <div className={this.state.order.step>=2?"btn-floating btn-flat green accent-2":"btn-floating btn-flat grey lighten-4"}>
+                          <i className={this.state.order.step>=2?"material-icons green-text":"material-icons grey-text"}>check</i>
+                        </div>
                       </div>
                     </div>
-                    <div className="row opacity-2">
+                    <div className={this.state.order.step>=3?"row":"row opacity-2"}>
                       <div className="col s2">
                         <div className="circle">
                           <img className="responsive-img shadow-road-from" src={motorcycle} alt={"mensajero en camino"}/>
                         </div>
                       </div>
-                      <div className="col s6">
-                        <h5 className="no-margin">{this.state.courier.name}</h5>
+                      <div className="col s8">
+                        <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).add(30, 'minutes').format('hh:mm A') }</h5>
                         <span className="grey-text text-darken-2">Pedido en curso</span>
                       </div>
+                      <div className="col s2">
+                        <div className={this.state.order.step>=3?"btn-floating btn-flat green accent-2":"btn-floating btn-flat grey lighten-4"}>
+                          <i className={this.state.order.step>=3?"material-icons green-text":"material-icons grey-text"}>check</i>
+                        </div>
+                      </div>
                     </div>
-                    <div className="row opacity-3">
+                    <div className={this.state.order.step>=4?"row":"row opacity-3"}>
                       <div className="col s2">
                         <div className="circle">
                           <img className="responsive-img shadow-yellow" src={packageDone} alt={"foto del mensajero"}/>
                         </div>
                       </div>
                       <div className="col s6">
-                        <h5 className="no-margin">{moment(this.state.order.creation).add(40, 'minutes').format('hh:mm A') }</h5>
+                        <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).add(50, 'minutes').format('hh:mm A') }</h5>
                         <span className="grey-text text-darken-2">Tiempo de entrega</span>
+                      </div>
+                    </div>
+                    <div className={this.state.order.step>=4?"row":"row opacity-3"}>
+                      <div className={this.state.order.step>=4?"btn green accent-2 shadow-green waves-effect col s12":"btn primary disabled col s12"}>
+                        Pague al mensajero $ {this.currencyFormat(this.state.order.paymentoffer)}
                       </div>
                     </div>
                   </div>
@@ -314,17 +356,6 @@ class InCourse extends React.Component{
             <div className="col s12">
               <div className="card">
                 <div className="card-content">
-                  <div className="row">
-                    <div className="col s2">
-                      <div className="circle">
-                        <img className="responsive-img shadow-city" src={getImg(this.state.order.pay)} alt={this.state.order.paymentoffer}/>
-                      </div>
-                    </div>
-                    <div className="col s6">
-                      <h5 className="no-margin">{this.currencyFormat(this.state.order.paymentoffer)}</h5>
-                      <span className="grey-text text-darken-2">{this.state.order.pay}</span>
-                    </div>
-                  </div>
                   {
                     this.state.order.courier==0?
                     <div className="row">

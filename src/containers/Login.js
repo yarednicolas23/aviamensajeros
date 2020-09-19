@@ -42,7 +42,7 @@ export default function Login(){
   const [phone] =useState(undefined)
   //const [cookies, setCookie,removeCookie] = useCookies()
   //removeCookie('user')
-  //setCookie('user',{name:"John Doe",mail:"johndoe@hotmail.com",phone:3212833647})
+  //setCookie('couier',{name:"John Doe",mail:"johndoe@hotmail.com",phone:3212833647})
   useEffect(() => {
     M.updateTextFields()
   })

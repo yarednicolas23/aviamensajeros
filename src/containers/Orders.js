@@ -35,9 +35,10 @@ function currencyFormat(price){
 function takeOrder(data,courier,database,history) {
   var key = data.id
   data.courier=courier
-  data.key=null
+  data.id=null
+  data.step=1
+  data.tracking={dateCourierTakeOrder:new Date().toString()}
   database.ref('order/'+key).set(data)
-  console.log(data)
   history.push("/courier/incourse/"+key)
 }
 function details(order,history) {
@@ -48,19 +49,14 @@ export default function Orders(props) {
   const [list,setList]=useState([])
   const [cookies,setCookie,removeCookie] = useCookies()
   const getList = async()=>{
-    var flist=[]
-    props.database.ref('order').on('value',(snap)=>{
-      console.log(snap.val())
+    props.database.ref('order').orderByChild('courier').equalTo(0).on("value", function(snapshot) {
       var flist=[]
       setList([])
-      //setList(snap.val())
-      //this.setState({list:{}})
-      snap.forEach((childSnapshot)=> {
-        //var childKey =
-        var childData = childSnapshot.val()
-        childData.id= childSnapshot.key
-        //console.log(childData)
+      snapshot.forEach(function(data) {
+        var childData = data.val()
+        childData.id= data.key
         flist.push(childData)
+        //console.log(data.key);
       })
       setList(flist)
     })
@@ -139,7 +135,7 @@ export default function Orders(props) {
                     </div>
                     <div className="col s12 l6">
                       <button onClick={()=>details(order,history)} className="btn-flat waves-effect col s6">Detalles</button>
-                      <button onClick={()=>takeOrder(order,cookies.user.phone,props.database,history)} className="btn primary waves-effect col s6">Tomar</button>
+                      <button onClick={()=>takeOrder(order,cookies.courier.phone,props.database,history)} className="btn primary waves-effect col s6">Tomar</button>
                     </div>
                   </div>
                   </div>

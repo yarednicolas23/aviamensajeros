@@ -1,8 +1,9 @@
 import React from 'react'
 import { withRouter } from "react-router"
 import moment from 'moment'
-
 import M from 'materialize-css'
+
+import SideBar from '../components/SideBar'
 
 import motorcycle from './../assets/motorcycle.svg'
 import moverTruck from './../assets/mover-truck.svg'
@@ -18,6 +19,7 @@ import distance from './../assets/distance.svg'
 import timer from './../assets/timer.svg'
 import clock from './../assets/clock.svg'
 import packageDone from './../assets/package-done.svg'
+import shield from './../assets/shield.svg'
 
 import whats from './../assets/actions/whatsapp.svg'
 import phone from './../assets/actions/phone.svg'
@@ -64,8 +66,6 @@ class InCourse extends React.Component{
         phone:""
       },
       count:30,
-      suggets:false,
-      undo:false,
       key:'',
       loader:{order:true,user:false}
     }
@@ -88,9 +88,6 @@ class InCourse extends React.Component{
     this.props.history.push("/resume/"+e);
   };
   watchOrder(){
-    //var instance = M.Modal.getInstance(document.getElementById('orderConfirmation'))
-    //instance.open()
-    this.countDown()
     if (this.state.key!=null) {
       this.props.database.ref('order/'+this.state.key).on('value',(snap)=>{
         if (snap.val()!=null) {
@@ -122,39 +119,10 @@ class InCourse extends React.Component{
       }
     })
   }
-  setUser=(user)=>{
-    this.setState({user:user})
-    this.state.order.user=user.phone
-    var instance = M.Modal.getInstance(document.getElementById("preorder"))
-    instance.close()
-    M.Modal.getInstance(document.getElementById("orderConfirmation")).open()
-    this.writeOrderData()
-  }
-  showSuggets(){
-    this.setState({suggets:!this.state.suggets})
-  }
-  countDown(){
-    this.interval = setInterval(() => {
-      if (this.state.count>0) {
-        this.setState({count:this.state.count- 1})
-      }else {
-        this.showSuggets()
-        clearInterval(this.interval)
-      }
-    }, 1000)
-  }
-  updatePaymentOffer(offer){
-    this.state.order.paymentoffer=parseInt(this.state.order.paymentoffer)+offer
-    this.state.order.paymentoffer=this.state.order.paymentoffer.toString()
-    this.state.undo=true
+  updateStep(step){
+    this.state.order.step=step
     this.props.database.ref('order/'+this.state.key).set(this.state.order)
-    this.setState(this.state)
-  }
-  undoPaymentOffer(){
-    this.state.order.paymentoffer=localStorage.getItem('paymentoffer')
-    this.state.undo=false
-    this.props.database.ref('order/'+this.state.key).set(this.state.order)
-    this.setState(this.state)
+    //this.setState(this.state)
   }
   currencyFormat(price){
     return price.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
@@ -162,7 +130,8 @@ class InCourse extends React.Component{
   render(){
     return(
       <div className="row">
-        <div className="col s12">
+        <div className="col s2"><SideBar active="home"/></div>
+        <div className="col s10">
           <h5 className="poppins">Resumen del pedido:</h5>
           <div className="col s12 l6">
             <div className="row">
@@ -227,6 +196,17 @@ class InCourse extends React.Component{
                       <span className="grey-text text-darken-2">Fecha</span>
                     </div>
                   </div>
+                  <div className="row">
+                    <div className="col s2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-city" src={getImg(this.state.order.pay)} alt={this.state.order.paymentoffer}/>
+                      </div>
+                    </div>
+                    <div className="col s6">
+                      <h5 className="no-margin">{this.currencyFormat(this.state.order.paymentoffer)}</h5>
+                      <span className="grey-text text-darken-2">{this.state.order.pay}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -236,170 +216,103 @@ class InCourse extends React.Component{
               {
                 this.state.order.user!==0?
                 <div className="col s12">
-                    <div className="card">
-                      <div className="card-content">
-                        <div className="row">
-                          <div className="col s2">
-                            <div className="circle">
-                              <img className="responsive-img shadow-courier" src={courier} alt={"foto del mensajero"}/>
-                            </div>
-                          </div>
-                          <div className="col s4 l6">
-                            <h5 className="no-margin">{this.state.user.name}</h5>
-                            <span className="grey-text text-darken-2">Cliente</span>
-                          </div>
-                          <div className="col s6 l4">
-                            <a href={"tel:"+this.state.user.phone} className="col s6"><img className="responsive-img shadow-action" src={phone} alt={"foto del mensajero"}/></a>
-                            <a href={"https://api.whatsapp.com/send?phone="+this.state.user.phone+"&text=Hola "+this.state.user.name+""} className="col s6"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
+                  <div className="card">
+                    <div className="card-content">
+                      <div className="row">
+                        <div className="col s2">
+                          <div className="circle">
+                            <img className="responsive-img shadow-courier" src={courier} alt={"foto del mensajero"}/>
                           </div>
                         </div>
-                        <div className="row">
-                          <div className="col s2">
-                            <div className="circle">
-                              <img className="responsive-img shadow-road-from" src={clock} alt={"foto del mensajero"}/>
-                            </div>
-                          </div>
-                          <div className="col s6">
-                            <h5 className="no-margin">{moment(this.state.order.creation).format('hh:mm A') }</h5>
-                            <span className="grey-text text-darken-2">Hora del pedido</span>
+                        <div className="col s4 l6">
+                          <h5 className="no-margin">{this.state.user.name}</h5>
+                          <span className="grey-text text-darken-2">Cliente</span>
+                        </div>
+                        <div className="col s6 l4">
+                          <a href={"tel:"+this.state.user.phone} className="col s6"><img className="responsive-img shadow-action" src={phone} alt={"foto del mensajero"}/></a>
+                          <a href={"https://api.whatsapp.com/send?phone="+this.state.user.phone+"&text=Hola "+this.state.user.name+""} className="col s6"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col s2">
+                          <div className="circle">
+                            <img className="responsive-img shadow-road-from" src={clock} alt={"foto del mensajero"}/>
                           </div>
                         </div>
-                        <div className="row opacity-1">
-                          <div className="col s2">
-                            <div className="circle">
-                              <img className="responsive-img shadow-road-from" src={timer} alt={"foto del mensajero"}/>
-                            </div>
-                          </div>
-                          <div className="col s6">
-                            <h5 className="no-margin">{moment(this.state.order.creation).add(20, 'minutes').format('hh:mm A') }</h5>
-                            <span className="grey-text text-darken-2">Hora de llegada</span>
+                        <div className="col s8">
+                          <h5 className="no-margin">{moment(this.state.order.creation).format('hh:mm A') }</h5>
+                          <span className="grey-text text-darken-2">Hora del pedido</span>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col s2">
+                          <div className="circle">
+                            <img className="responsive-img shadow-road-from" src={shield} alt={"foto del mensajero"}/>
                           </div>
                         </div>
-                        <div className="row opacity-2">
-                          <div className="col s2">
-                            <div className="circle">
-                              <img className="responsive-img shadow-road-from" src={motorcycle} alt={"mensajero en camino"}/>
-                            </div>
-                          </div>
-                          <div className="col s6">
-                            <h5 className="no-margin">{this.state.courier.name}</h5>
-                            <span className="grey-text text-darken-2">Pedido en curso</span>
+                        <div className="col s8">
+                          <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).format('hh:mm A') }</h5>
+                          <span className="grey-text text-darken-2">Hora de tomado por mensajero</span>
+                        </div>
+                        <div className="col s2">
+                          <div className={this.state.order.step>=1?"btn-floating btn-flat green accent-2":"btn-floating btn-flat grey lighten-4"}>
+                            <i className={this.state.order.step>=1?"material-icons green-text":"material-icons grey-text"}>check</i>
                           </div>
                         </div>
-                        <div className="row opacity-3">
-                          <div className="col s2">
-                            <div className="circle">
-                              <img className="responsive-img shadow-yellow" src={packageDone} alt={"foto del mensajero"}/>
-                            </div>
+                      </div>
+                      <div className={this.state.order.step>=2?"row":"row opacity-1"}>
+                        <div className="col s2">
+                          <div className="circle">
+                            <img className="responsive-img shadow-road-from" src={timer} alt={"foto del mensajero"}/>
                           </div>
-                          <div className="col s6">
-                            <h5 className="no-margin">{moment(this.state.order.creation).add(40, 'minutes').format('hh:mm A') }</h5>
-                            <span className="grey-text text-darken-2">Tiempo de entrega</span>
+                        </div>
+                        <div className="col s8">
+                          <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).add(20, 'minutes').format('hh:mm A') }</h5>
+                          <span className="grey-text text-darken-2">Hora de llegada del mensajero</span>
+                        </div>
+                        <div className="col s2">
+                          <div onClick={()=>this.updateStep(2)} className={this.state.order.step>=2?"btn-floating btn-flat green accent-2":"btn-floating btn-flat grey lighten-4"}>
+                            <i className={this.state.order.step>=2?"material-icons green-text":"material-icons grey-text"}>check</i>
                           </div>
+                        </div>
+                      </div>
+                      <div className={this.state.order.step>=3?"row":"row opacity-2"}>
+                        <div className="col s2">
+                          <div className="circle">
+                            <img className="responsive-img shadow-road-from" src={motorcycle} alt={"mensajero en camino"}/>
+                          </div>
+                        </div>
+                        <div className="col s8">
+                          <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).add(30, 'minutes').format('hh:mm A') }</h5>
+                          <span className="grey-text text-darken-2">Pedido en curso</span>
+                        </div>
+                        <div className="col s2">
+                          <div onClick={()=>this.updateStep(3)} className={this.state.order.step>=3?"btn-floating btn-flat green accent-2":"btn-floating btn-flat grey lighten-4"}>
+                            <i className={this.state.order.step>=3?"material-icons green-text":"material-icons grey-text"}>check</i>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={this.state.order.step>=4?"row":"row opacity-3"}>
+                        <div className="col s2">
+                          <div className="circle">
+                            <img className="responsive-img shadow-yellow" src={packageDone} alt={"foto del mensajero"}/>
+                          </div>
+                        </div>
+                        <div className="col s6">
+                          <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).add(50, 'minutes').format('hh:mm A') }</h5>
+                          <span className="grey-text text-darken-2">Tiempo de entrega</span>
+                        </div>
+                      </div>
+                      <div className={this.state.order.step>=3?"row":"row opacity-3"}>
+                        <div onClick={()=>this.updateStep(4)} className={this.state.order.step>=3?"btn green accent-2 shadow-green waves-effect col s12":"btn primary disabled col s12"}>
+                          Entregue el pedido
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
                 :null
               }
-              <div className="col s12">
-                <div className="card">
-                  <div className="card-content">
-                    <div className="row">
-                      <div className="col s2">
-                        <div className="circle">
-                          <img className="responsive-img shadow-city" src={getImg(this.state.order.pay)} alt={this.state.order.paymentoffer}/>
-                        </div>
-                      </div>
-                      <div className="col s6">
-                        <h5 className="no-margin">{this.currencyFormat(this.state.order.paymentoffer)}</h5>
-                        <span className="grey-text text-darken-2">{this.state.order.pay}</span>
-                      </div>
-                    </div>
-                    {
-                      this.state.order.courier==0?
-                      <div className="row">
-                        <div className="col s12">
-                          <a onClick={()=>this.writeOrderData()} className="hide col s12 btn primary waves-effect waves-light">Confirmar servicio</a>
-                          <a data-target="preorder" className="col s12 btn primary modal-trigger waves-effect waves-light">Confirmar servicio</a>
-                        </div>
-                      </div>
-                      :
-                      null
-                    }
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="preorder" className="modal bottom-sheet modal-confirmation">
-            {
-              this.state.loader.user?
-              <div className="modal-content">
-                <h4>Espere un momento</h4>
-                <p>Un mensajero tomara su pedido en un momento</p>
-                <div className="progress">
-                  <div className="indeterminate"></div>
-                </div>
-              </div>
-              :
-              <div className="modal-content">
-                <h4>Por favor confirmenos sus datos de contacto</h4>
-
-              </div>
-            }
-          </div>
-          <div id="orderConfirmation" className="modal bottom-sheet modal-confirmation">
-            {
-              this.state.loader.order?
-              <div className="modal-content">
-                <h4>Espere un momento</h4>
-                <p>Un mensajero tomara su pedido en un momento</p>
-                {
-                  this.state.suggets?
-                  <div>
-                    <h5>¿Nadie toma el pedido?</h5>
-                    <p>Suba un poco la oferta para este pedido para que un mensajero la tome</p>
-                    <div className="row">
-                      <div className="col s12">
-                        <div className="card">
-                          <div className="card-content">
-                            <div className="row">
-                              <div className="col s12 l1">
-                                <div className="circle">
-                                  <img className="responsive-img shadow-city" src={getImg(this.state.order.pay)} alt={this.state.order.paymentoffer}/>
-                                </div>
-                              </div>
-                              <div className="col s12 l2">
-                                <h5 className="no-margin">{this.currencyFormat(this.state.order.paymentoffer)}</h5>
-                                <span className="grey-text text-darken-2">{this.state.order.pay}</span>
-                              </div>
-                              <div className="col s12 l6">
-                                {this.state.undo?<button className="btn-flat" onClick={()=>this.undoPaymentOffer()}>deshacer</button>:null}
-                                <button className="btn primary" onClick={()=>this.updatePaymentOffer(1000)}>$1.000</button>
-                                <button className="btn primary" onClick={()=>this.updatePaymentOffer(2000)}>$2.000</button>
-                                <button className="btn primary" onClick={()=>this.updatePaymentOffer(5000)}>$5.000</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>:
-                  null
-                }
-                <div className="progress">
-                  <div className="indeterminate"></div>
-                </div>
-              </div>
-              :
-              <div className="modal-content">
-                <h4>¡Listo! 🛵</h4>
-                <p>Tu pedido fue tomado por el mensajero <b>{this.state.courier.name}</b></p>
-              </div>
-            }
-            <div className="modal-footer">
-              <a href="#!" className="hide modal-close waves-effect waves-green btn-flat">Agree</a>
             </div>
           </div>
         </div>

@@ -26,6 +26,7 @@ import OrderInCourse from './components/InCourse'
 import Login from './containers/Login'
 
 import LoginUser from './user/Login'
+import Register from './user/Register'
 
 import CourierHome from './courier/Home'
 import InCourse from './courier/InCourse'
@@ -75,7 +76,7 @@ function App() {
             </header>
           </Route>
           <Route path="/package">
-            <header className="container">
+            <header className="">
               <Package/>
             </header>
           </Route>
@@ -115,7 +116,7 @@ function App() {
           </Route>
 
           <Route path="/courier/home">
-            <CourierHome/>
+            <CourierHome database={database}/>
           </Route>
           <Route path="/courier/orders">
             <header>
@@ -134,6 +135,10 @@ function App() {
           <Route path="/login">
             <LoginUser/>
           </Route>
+          <Route path="/register">
+            <Register database={database}/>
+          </Route>
+
         </Switch>
       </div>
     </Router>

@@ -15,7 +15,7 @@ export default class Button extends React.Component{
     this.props=props
   }
   getImg(title){
-    if (this.props.title==='Liviano'){return motorcycle}
+    if (this.props.title==='Encargo'){return motorcycle}
     if (this.props.title==='Pesado'){return moverTruck}
     if (this.props.title==='Documentos'){return envelope}
     if (this.props.title==='Caja'){return box}

@@ -3,6 +3,7 @@ import {
   useHistory
 } from "react-router-dom"
 import M from 'materialize-css'
+import moment from 'moment'
 
 import calendaricon from './../assets/google-calendar.svg'
 import clockicon from './../assets/clock.svg'
@@ -44,7 +45,7 @@ export default function How(props) {
           </>
           :
           <div className="row">
-            <div className="card col s6">
+            <div className="card">
               <div className="card-content text-left">
                 <div className="row">
                   <div className="col s2">
@@ -52,9 +53,9 @@ export default function How(props) {
                       <img className="responsive-img shadow-blue" src={calendaricon} alt={"fecha programada"}/>
                     </div>
                   </div>
-                  <div className="col s6">
-                    <h5 className="no-margin">{date}</h5>
-                    <span className="grey-text text-darken-2">Fecha</span>
+                  <div className="col s10 left-align">
+                    <h5 className="no-margin">{moment(date).format('dddd DD MMMM YYYY')}</h5>
+                    <span className="grey-text text-darken-2">Fecha del pedido</span>
                   </div>
                 </div>
                 <div className="row">
@@ -63,11 +64,12 @@ export default function How(props) {
                       <img className="responsive-img shadow-road-from" src={clockicon} alt={"hora de recogida"}/>
                     </div>
                   </div>
-                  <div className="col s10">
+                  <div className="col s10 left-align">
                     <h5 className="no-margin">{time}</h5>
-                    <span className="grey-text text-darken-2">Hora recogida</span>
+                    <span className="grey-text text-darken-2">Hora del pedido</span>
                   </div>
                 </div>
+                <a onClick={()=>go(moment(date).format('dddd DD MMMM YYYY')+" "+time)} className="col s12 btn primary waves-effect waves-light">Confirmar</a>
               </div>
             </div>
           </div>

@@ -27,6 +27,7 @@ import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
 
 function getImg(title){
   if (title==='Liviano'){return motorcycle}
+  if (title==='Encargo'){return motorcycle}
   if (title==='Pesado'){return moverTruck}
   if (title==='Documentos'){return envelope}
   if (title==='Caja'){return box}
@@ -236,7 +237,7 @@ class PaymentOffer extends React.Component{
                   <div className="row">
                     <div className="col s2">
                       <div className="circle">
-                        <img className="responsive-img shadow-type" src={getImg(this.state.order.when)} alt={this.state.order.when}/>
+                        <img className="responsive-img shadow-type" src={getImg(this.state.order.when!='Ahora'?'Agendar':'Ahora')} alt={this.state.order.when}/>
                       </div>
                     </div>
                     <div className="col s10">

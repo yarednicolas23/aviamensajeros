@@ -62,7 +62,7 @@ export default class Home extends React.Component {
           </div>
         </div>
         <div className="row full-screen">
-          <h4 className="title">¿Por qué somos mejores?</h4>
+          <h4 className="title">¿Por qué elegirnos?</h4>
           <div className="col s12 l4 center">
             <div className="col s6 offset-s3"><img className="responsive-img shadow-moto" src={money} alt={"oferta la tarifa"}/></div>
             <div className="col s12">
