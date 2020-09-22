@@ -268,7 +268,7 @@ class PaymentOffer extends React.Component{
                         </div>
                         <div className="col s6 l4">
                           <a href={"tel:"+this.state.courier.phone} className="col s6"><img className="responsive-img shadow-action" src={phone} alt={"foto del mensajero"}/></a>
-                          <a href={"https://api.whatsapp.com/send?phone="+this.state.courier.phone+"&text=Hola "+this.state.courier.name+""} className="col s6"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
+                          <a href={"https://api.whatsapp.com/send?phone="+this.state.courier.phone+"&text=Hola "+this.state.courier.name+""}  target="_blank" className="col s6"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
                         </div>
                       </div>
                       <div className="row">
@@ -356,7 +356,7 @@ class PaymentOffer extends React.Component{
               this.state.loader.user?
               <div className="modal-content">
                 <h4>Espere un momento</h4>
-                <p>Un mensajero tomara su pedido en un momento</p>
+                <p>Un mensajero tomará su pedido en un momento</p>
                 <div className="progress">
                   <div className="indeterminate"></div>
                 </div>
@@ -373,12 +373,12 @@ class PaymentOffer extends React.Component{
             this.state.loader.order?
             <div className="modal-content">
               <h4>Espere un momento</h4>
-              <p>Un mensajero tomara su pedido en un momento</p>
+              <p>Un mensajero tomara su pedido</p>
               {
                 this.state.suggets?
                 <div>
                   <h5>¿Nadie toma el pedido?</h5>
-                  <p>Suba un poco la oferta para este pedido para que un mensajero la tome</p>
+                  <p>Puede subir un poco la oferta para que un mensajero tome su orden</p>
                   <div className="row">
                     <div className="col s12">
                       <div className="card">

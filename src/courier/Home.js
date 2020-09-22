@@ -16,7 +16,7 @@ function currencyFormat(price){
 
 export default function Home(props){
   let history = useHistory()
-  const [cookies,setCookie,removeCookie] = useCookies()
+  const [cookies] = useCookies()
 
   const [list,setList]=useState([])
 
@@ -39,7 +39,9 @@ export default function Home(props){
     history.push("/courier/incourse/"+key)
   }
   useEffect(() => {
-    watchOrders()
+    if (cookies.courier!=null) {
+      watchOrders()
+    }
   }, [])
   return(
     <div className="row">

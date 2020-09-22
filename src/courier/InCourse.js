@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from "react-router"
 import moment from 'moment'
-import M from 'materialize-css'
+//import M from 'materialize-css'
 
 import SideBar from '../components/SideBar'
 
@@ -252,7 +252,7 @@ class InCourse extends React.Component{
                         </div>
                         <div className="col s8">
                           <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).format('hh:mm A') }</h5>
-                          <span className="grey-text text-darken-2">Hora de tomado por mensajero</span>
+                          <span className="grey-text text-darken-2">El mensajero tomo el pedido</span>
                         </div>
                         <div className="col s2">
                           <div className={this.state.order.step>=1?"btn-floating btn-flat green accent-2":"btn-floating btn-flat grey lighten-4"}>

@@ -1,14 +1,17 @@
 import React from 'react'
-import {Link/*,useHistory*/} from "react-router-dom"
+import {Link,useHistory} from "react-router-dom"
 import { useCookies } from 'react-cookie'
 
 
 export default function SideBar(props) {
 
-  const [cookies/*, setCookie,removeCookie*/] = useCookies(['user'])
-  //let history = useHistory()
-  //console.log(cookies.user)
-  if (cookies.user==null) {
+  const [cookies,removeCookie] = useCookies()
+  let history = useHistory()
+  if (cookies.courier==null) {
+    history.push('/')
+  }
+  const closeSession =()=>{
+    removeCookie('courier')
     //history.push('/')
   }
 
@@ -30,7 +33,7 @@ export default function SideBar(props) {
         </tr>
         <tr style={{border:'none'}}>
           <td><i className="material-icons grey-text">close</i></td>
-          <td className="grey-text">Close session</td>
+          <td className="grey-text"><span onClick={()=>closeSession()}>Close session</span></td>
         </tr>
       </tbody>
     </table>

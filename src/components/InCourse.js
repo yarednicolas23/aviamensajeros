@@ -65,7 +65,7 @@ class InCourse extends React.Component{
         name:"",
         phone:""
       },
-      count:30,
+      count:5,
       suggets:false,
       undo:false,
       key:'',
@@ -96,9 +96,9 @@ class InCourse extends React.Component{
       instance.open()
       this.props.database.ref('order/'+id).on('value',(snap)=>{
         if (snap.val()!=null) {
+          this.state.order=snap.val()
+          this.setState(this.state)
           if (snap.val().courier!==0) {
-            this.state.order=snap.val()
-            this.setState(this.state)
             if (snap.val().courier!=null) {
               this.getCourier(snap.val().courier)
               this.state.loader.order=false
@@ -290,7 +290,7 @@ class InCourse extends React.Component{
                       </div>
                       <div className="col s8">
                         <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).format('hh:mm A') }</h5>
-                        <span className="grey-text text-darken-2">Hora de tomado por mensajero</span>
+                        <span className="grey-text text-darken-2">El mensajero tomo el pedido</span>
                       </div>
                       <div className="col s2">
                         <div className={this.state.order.step>=1?"btn-floating btn-flat green accent-2":"btn-floating btn-flat grey lighten-4"}>
@@ -338,12 +338,12 @@ class InCourse extends React.Component{
                       </div>
                       <div className="col s6">
                         <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).add(50, 'minutes').format('hh:mm A') }</h5>
-                        <span className="grey-text text-darken-2">Tiempo de entrega</span>
+                        <span className="grey-text text-darken-2">Hora de entrega</span>
                       </div>
                     </div>
                     <div className={this.state.order.step>=4?"row":"row opacity-3"}>
                       <div className={this.state.order.step>=4?"btn green accent-2 shadow-green waves-effect col s12":"btn primary disabled col s12"}>
-                        Pague al mensajero $ {this.currencyFormat(this.state.order.paymentoffer)}
+                        Le pagué al mensajero $ {this.currencyFormat(this.state.order.paymentoffer)}
                       </div>
                     </div>
                   </div>
@@ -352,7 +352,7 @@ class InCourse extends React.Component{
             </div>
             :null
           }
-          <div className="row">
+          <div className="row hide">
             <div className="col s12">
               <div className="card">
                 <div className="card-content">
@@ -399,7 +399,7 @@ class InCourse extends React.Component{
                 this.state.suggets?
                 <div>
                   <h5>¿Nadie toma el pedido?</h5>
-                  <p>Suba un poco la oferta para este pedido para que un mensajero la tome</p>
+                  <p>Puede subir un poco la oferta para que un mensajero tome su orden</p>
                   <div className="row">
                     <div className="col s12">
                       <div className="card">
@@ -435,7 +435,7 @@ class InCourse extends React.Component{
             :
             <div className="modal-content">
               <h4>¡Listo!</h4>
-              <p>Tu pedido fue tomado por el mensajero:</p>
+              <p>Su pedido fue tomado por el mensajero:</p>
               <h5><b>{this.state.courier.name}</b></h5>
             </div>
           }

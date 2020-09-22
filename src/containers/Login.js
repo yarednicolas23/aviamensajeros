@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
-//import { useCookies } from 'react-cookie'
+import { useHistory } from "react-router-dom"
+import { useCookies } from 'react-cookie'
 import M from 'materialize-css'
 
 /*
@@ -14,38 +15,42 @@ import M from 'materialize-css'
     <label>Email</label>
   </div>
 */
-function submit(event) {
-  event.preventDefault();
-  fetch('http://localhost:8080/create/', {
-    method: 'POST',
-    headers: {'Accept': 'application/json','Content-Type': 'application/json'},
-    body: JSON.stringify({phone:'phone'})
-  })
-  .then(res => {
-    res.text()
-    .then(response => {
-      if (response!=='') {
-        console.log(JSON.parse(response))
-      }else {
-        M.toast({html:"Usuario no existe"})
-      }
-    })
-  })
-  .then((result)=>{},
-    // Nota: es importante manejar errores aquí y no en
-    // un bloque catch() para que no interceptemos errores
-    // de errores reales en los componentes.
-    (error)=>{console.log(error)}
-  )
-}
 export default function Login(){
-  const [phone] =useState(undefined)
-  //const [cookies, setCookie,removeCookie] = useCookies()
-  //removeCookie('user')
+  const [phone,setPhone] =useState(undefined)
+  const [ setCookie ] = useCookies()
+  let history = useHistory()
+  //removeCookie('courier')
   //setCookie('couier',{name:"John Doe",mail:"johndoe@hotmail.com",phone:3212833647})
   useEffect(() => {
     M.updateTextFields()
-  })
+  },[])
+  const submit=(event)=> {
+    event.preventDefault()
+    console.log(event);
+    fetch('http://localhost:8080/courier/login', {
+      method: 'POST',
+      headers: {'Accept': 'application/json','Content-Type': 'application/json'},
+      body: JSON.stringify({phone:phone})
+    })
+    .then(res => {
+      res.text()
+      .then(response => {
+        console.log(response)
+        if (response!=='') {
+          setCookie('courier',JSON.parse(response))
+          history.push('/courier/orders')
+        }else {
+          M.toast({html:"Usuario no existe"})
+        }
+      })
+    })
+    .then((result)=>{},
+      // Nota: es importante manejar errores aquí y no en
+      // un bloque catch() para que no interceptemos errores
+      // de errores reales en los componentes.
+      (error)=>{console.log(error)}
+    )
+  }
 
   return(
     <div className="container">
@@ -54,7 +59,7 @@ export default function Login(){
         <form className="col s12" onSubmit={submit}>
           <div className="input-field col s12">
             <i className="material-icons prefix">phone</i>
-            <input id="phone" type="tel" className="validate" placeholder="Escriba su número" value={phone}/>
+            <input id="phone" type="tel" className="validate" placeholder="Escriba su número" value={phone} onChange={e => setPhone(e.target.value)}/>
           </div>
           <div className="col s12">
             <button type="submit" className="col s12 btn primary">Iniciar sesión</button>

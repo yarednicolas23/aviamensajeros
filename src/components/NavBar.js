@@ -4,6 +4,7 @@ import {
 } from "react-router-dom"
 
 import courier from '../assets/charters/ToyFaces_Colored_BG_29.jpg'
+import user from '../assets/charters/ToyFaces_Colored_BG_56.jpg'
 
 import { useCookies } from 'react-cookie'
 
@@ -18,10 +19,19 @@ export default function NavBar() {
           {
             cookies.courier!=null?
             <li>
-              <Link to="/" className="black-text">
+              <Link to="/courier/home" className="black-text">
                 <img className="responsive-img img-profile" src={courier} alt={"foto del mensajero"}/>
                 <span> {cookies.courier.name} </span>
-                <div className="btn-floating btn-flat grey lighten-4"><i className="material-icons grey-text" style={{lineHeight:'inherit'}}>keyboard_arrow_down</i></div>
+                <div className="hide btn-floating btn-flat grey lighten-4"><i className="material-icons grey-text" style={{lineHeight:'inherit'}}>keyboard_arrow_down</i></div>
+              </Link>
+            </li>
+            :
+            cookies.user!=null?
+            <li>
+              <Link to="/user/home" className="black-text">
+                <img className="responsive-img img-profile" src={user} alt={"foto del usuario"}/>
+                <span> {cookies.user.name} </span>
+                <div className="hide btn-floating btn-flat grey lighten-4"><i className="material-icons grey-text" style={{lineHeight:'inherit'}}>keyboard_arrow_down</i></div>
               </Link>
             </li>
             :
