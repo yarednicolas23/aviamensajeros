@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { useHistory } from "react-router-dom"
-import { useCookies } from 'react-cookie'
+//import { useCookies } from 'react-cookie'
 import M from 'materialize-css'
 
 /*
@@ -17,7 +17,7 @@ import M from 'materialize-css'
 */
 export default function Login(){
   const [phone,setPhone] =useState(undefined)
-  const [ setCookie ] = useCookies()
+  //const [ setCookie ] = useCookies()
   let history = useHistory()
   //removeCookie('courier')
   //setCookie('couier',{name:"John Doe",mail:"johndoe@hotmail.com",phone:3212833647})
@@ -37,7 +37,8 @@ export default function Login(){
       .then(response => {
         console.log(response)
         if (response!=='') {
-          setCookie('courier',JSON.parse(response))
+          localStorage.setItem('courier', response)
+          //setCookie('courier',JSON.parse(response))
           history.push('/courier/orders')
         }else {
           M.toast({html:"Usuario no existe"})

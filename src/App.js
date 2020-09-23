@@ -27,6 +27,8 @@ import Login from './containers/Login'
 
 import LoginUser from './user/Login'
 import Register from './user/Register'
+import AssignPassword from './user/AssignPassword'
+import MyOrders from './user/MyOrders'
 
 import CourierHome from './courier/Home'
 import InCourse from './courier/InCourse'
@@ -132,6 +134,14 @@ function App() {
             <InCourse database={database}/>
           </Route>
 
+          <Route path="/user/myorders">
+            <MyOrders database={database}/>
+          </Route>
+
+
+          <Route path="/assignpassword/:phone">
+            <AssignPassword />
+          </Route>
           <Route path="/login">
             <LoginUser/>
           </Route>
