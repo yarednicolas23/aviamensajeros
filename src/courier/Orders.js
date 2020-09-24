@@ -1,8 +1,9 @@
-import React , { useState,useEffect } from 'react'
+import React,{useState,useEffect} from 'react'
 import { useHistory } from 'react-router-dom'
 import moment from 'moment'
+import M from 'materialize-css'
 
-import SideBar from './SideBar'
+import SideBar from '../courier/SideBar'
 
 import motorcycle from './../assets/motorcycle.svg'
 import moverTruck from './../assets/mover-truck.svg'
@@ -30,37 +31,47 @@ function getImg(title){
 function currencyFormat(price){
   return price.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
 }
+function takeOrder(data,courier,database,history) {
+  var key = data.id
+  data.courier=courier
+  data.id=null
+  data.step=1
+  data.tracking={dateCourierTakeOrder:new Date().toString()}
+  database.ref('order/'+key).set(data)
+  history.push("/courier/incourse/"+key)
+}
 function details(order,history) {
   history.push("/courier/order/"+order.key)
 }
-
-export default function MyOrders(props) {
+export default function Orders(props) {
   let history = useHistory()
   const [list,setList]=useState([])
-  const [user] = useState(JSON.parse(localStorage.getItem('user')))
+  const [courier] = useState(JSON.parse(localStorage.getItem('courier')))
   const getList = async()=>{
-    props.database.ref('order').orderByChild('user').equalTo(user.phone).on("value", function(snapshot) {
+    props.database.ref('order').orderByChild('courier').equalTo(0).on("value", function(snapshot) {
       var flist=[]
       setList([])
       snapshot.forEach(function(data) {
         var childData = data.val()
         childData.id= data.key
         flist.push(childData)
+        //console.log(data.key);
       })
       setList(flist)
     })
   }
   useEffect(() => {
-    console.log(user);
     getList()
   }, [])
+
   return(
     <div className="row">
-      <div className="col s10">
+      <div className="col s12">
+        <h5><b>Lista de pedidos</b></h5>
         {
           list.map((order,i)=>
           <div key={i}>
-            <div className="col s12 l6">
+            <div className="col s12 m12 l6">
               <div className="card">
                 <div className="card-content">
                 <div className="row">
@@ -119,6 +130,7 @@ export default function MyOrders(props) {
                   </div>
                   <div className="col s12 l6">
                     <button onClick={()=>details(order,history)} className="btn-flat waves-effect col s6">Detalles</button>
+                    <button onClick={()=>takeOrder(order,courier.phone,props.database,history)} className="btn primary waves-effect col s6">Tomar</button>
                   </div>
                 </div>
                 </div>
@@ -127,9 +139,6 @@ export default function MyOrders(props) {
           </div>
           )
         }
-      </div>
-      <div className="col s2">
-        <SideBar active="myorders"/>
       </div>
     </div>
   )

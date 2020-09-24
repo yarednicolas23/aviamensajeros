@@ -13,7 +13,7 @@ export default function Package(props) {
   }
   return(
     <div className="col s12 center">
-      <h3 className="title grey-text text-darken-3">¿Qué paquete desea enviar?</h3>
+      <h5 className="title grey-text text-darken-3">¿Qué paquete desea enviar?</h5>
       <div className="cards-container">
         <Button title="Documentos" handleClick={()=>go("Documentos")} state={props.state}/>
         <Button title="Caja" handleClick={()=>go("Caja")} state={props.state}/>

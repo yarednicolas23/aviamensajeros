@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { useHistory } from "react-router-dom"
+import { useHistory } from 'react-router-dom'
 //import { useCookies } from 'react-cookie'
 import M from 'materialize-css'
 
@@ -26,7 +26,6 @@ export default function Login(){
   },[])
   const submit=(event)=> {
     event.preventDefault()
-    console.log(event);
     fetch('http://localhost:8080/courier/login', {
       method: 'POST',
       headers: {'Accept': 'application/json','Content-Type': 'application/json'},

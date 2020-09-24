@@ -32,10 +32,10 @@ import MyOrders from './user/MyOrders'
 
 import CourierHome from './courier/Home'
 import InCourse from './courier/InCourse'
-
+import Orders from './courier/Orders'
+import OrderHistory from './courier/OrderHistory'
 
 import OrderResume from './containers/OrderResume'
-import Orders from './containers/Orders'
 //import Administrator from './containers/Administrator'
 import Home from './containers/Home'
 
@@ -119,6 +119,9 @@ function App() {
 
           <Route path="/courier/home">
             <CourierHome database={database}/>
+          </Route>
+          <Route path="/courier/orderhistory">
+            <OrderHistory/>
           </Route>
           <Route path="/courier/orders">
             <header>

@@ -1,17 +1,16 @@
 import React from 'react'
 import { Link,useHistory } from "react-router-dom"
-import { useCookies } from 'react-cookie'
 
 export default function SideBar(props) {
 
-  const [cookies,removeCookie] = useCookies()
   let history = useHistory()
-  
-  if (cookies.user==null) {
+
+  if (localStorage.getItem('user')==null) {
     history.push('/')
   }
   const closeSession =()=>{
-    removeCookie('user')
+    localStorage.removeItem('user')
+    //removeCookie('user')
     //history.push('/')
   }
 

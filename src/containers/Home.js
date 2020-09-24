@@ -28,13 +28,13 @@ export default class Home extends React.Component {
             <p className="thin">Llevamos, recogemos, entregamos, pagamos y hacemos lo que necesite.</p>
             <Link to={"package"} className="btn primary">hacer un pedido</Link>
           </div>
-          <div className="col s12 l2">
+          <div className="col s4 l2">
             <img className="responsive-img shadow-moto animation" src={fastDelivery} alt={"aviamensajeros"}/>
               <br/><br/><br/><br/><br/><br/>
             <img className="responsive-img shadow-moto animation-animation" src={motorcycle} alt={"aviamensajeros"}/>
           </div>
 
-          <div className="col s12 l2">
+          <div className="col s4 l2">
             <br/><br/><br/>
             <img className="responsive-img shadow-moto animation" src={envelope} alt={"aviamensajeros"}/>
             <br/><br/><br/><br/><br/><br/>
@@ -43,22 +43,22 @@ export default class Home extends React.Component {
         </div>
         <div className="row full-screen">
           <h4 className="title">¿Como funciona?</h4>
-          <div className="col s6">
-          <div className="col s12">
-            <div className="col s1"><i className="material-icons">filter_1</i></div>
-            <div className="col s10"><h6 className="no-margin">Inidique una ruta</h6></div>
-            <div className="col s10"><p className="light">Desde dónde y adónde hay que entregar el paquete.</p></div>
-          </div>
-          <div className="col s12 opacity-1">
-            <div className="col s1"><i className="material-icons">filter_2</i></div>
-            <div className="col s10"><h6 className="no-margin">Ofrezca un precio</h6></div>
-            <div className="col s10"><p className="light">Indica un precio justo que este dispuesto a pagar al repartidor.</p></div>
-          </div>
-          <div className="col s12 opacity-2">
-            <div className="col s1"><i className="material-icons">filter_3</i></div>
-            <div className="col s10"><h6 className="no-margin">Agrege una descripción</h6></div>
-            <div className="col s10"><p className="light">Indica un precio justo que estás dispuesto a pagar al repartidor.</p></div>
-          </div>
+          <div className="col s12 l6">
+            <div className="col s12">
+              <div className="col s1"><i className="material-icons">filter_1</i></div>
+              <div className="col s10"><h6 className="no-margin">Inidique una ruta</h6></div>
+              <div className="col s10"><p className="light">Desde dónde y adónde hay que entregar el paquete.</p></div>
+            </div>
+            <div className="col s12 opacity-1">
+              <div className="col s1"><i className="material-icons">filter_2</i></div>
+              <div className="col s10"><h6 className="no-margin">Ofrezca un precio</h6></div>
+              <div className="col s10"><p className="light">Indica un precio justo que este dispuesto a pagar al repartidor.</p></div>
+            </div>
+            <div className="col s12 opacity-2">
+              <div className="col s1"><i className="material-icons">filter_3</i></div>
+              <div className="col s10"><h6 className="no-margin">Agrege una descripción</h6></div>
+              <div className="col s10"><p className="light">Indica un precio justo que estás dispuesto a pagar al repartidor.</p></div>
+            </div>
           </div>
         </div>
         <div className="row full-screen">

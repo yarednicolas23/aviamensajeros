@@ -1,9 +1,9 @@
 import React from 'react'
 import { withRouter } from "react-router"
 import moment from 'moment'
-//import M from 'materialize-css'
+import M from 'materialize-css'
 
-import SideBar from '../components/SideBar'
+import SideBar from './SideBar'
 
 import motorcycle from './../assets/motorcycle.svg'
 import moverTruck from './../assets/mover-truck.svg'
@@ -85,7 +85,7 @@ class InCourse extends React.Component{
     this.props.database.ref('order/').push(this.state.order).then((snap)=>{this.setState({key:snap.key});this.watchOrder()})
   }
   goToOrder = e => {
-    this.props.history.push("/resume/"+e);
+    this.props.history.push("/resume/"+e)
   };
   watchOrder(){
     if (this.state.key!=null) {
@@ -124,14 +124,20 @@ class InCourse extends React.Component{
     this.props.database.ref('order/'+this.state.key).set(this.state.order)
     //this.setState(this.state)
   }
+  finishOrder(){
+    this.state.order.tracking.dateCourierFinishOrder = new Date().toString()
+    this.props.database.ref('order/'+this.state.key).set(null)
+    this.props.database.ref('orderhistory/'+this.state.key).set(this.state.order)
+    M.toast({html:"Pedido finalizado"})
+    this.props.history.push("/courier/orderhistory")
+  }
   currencyFormat(price){
     return price.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
   render(){
     return(
       <div className="row">
-        <div className="col s2"><SideBar active="home"/></div>
-        <div className="col s10">
+        <div className="col s12">
           <h5 className="poppins">Resumen del pedido:</h5>
           <div className="col s12 l6">
             <div className="row">
@@ -304,7 +310,7 @@ class InCourse extends React.Component{
                         </div>
                       </div>
                       <div className={this.state.order.step>=3?"row":"row opacity-3"}>
-                        <div onClick={()=>this.updateStep(4)} className={this.state.order.step>=3?"btn green accent-2 shadow-green waves-effect col s12":"btn primary disabled col s12"}>
+                        <div onClick={()=>this.finishOrder()} className={this.state.order.step>=3?"btn green accent-2 shadow-green waves-effect col s12":"btn primary disabled col s12"}>
                           Entregue el pedido
                         </div>
                       </div>
