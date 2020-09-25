@@ -38,12 +38,13 @@ body{font-family: 'Poppins', sans-serif!important;}
 .card .circle{width:40px;height:40px}
 .card .circle img{height:40px;margin:5px}
 .shadow-city{filter: drop-shadow(1px 1px 6px #08d6ac)}
-.shadow-road-from{filter: drop-shadow(1px 1px 6px #d5cdf0)}
+.shadow-road-from{filter: drop-shadow(1px 1px 6px #ff5665)}
 .shadow-road-to{filter: drop-shadow(1px 1px 6px #ff5665)}
 .shadow-type{filter: drop-shadow(2px 2px 8px #dea861)}
 .shadow-moto{filter: drop-shadow(2px 2px 8px #d5cdf0)}
 .shadow-purple{filter:drop-shadow(1px 1px 6px #a996eb)}
 .shadow-yellow{filter: drop-shadow(2px 2px 8px #dea861)}
+.shadow-pink{filter: drop-shadow(2px 2px 8px #e91e63)}
 .shadow-courier{filter: drop-shadow(2px 2px 8px #1b212f);height:45px!important}
 .shadow-action{filter: drop-shadow(2px 2px 8px #8ce1eb);height:40px!important}
 .cards-container{
@@ -143,6 +144,19 @@ nav{box-shadow: none !important}
 .progress .indeterminate{background-color: rgba(var(--primary),1)!important}
 .animation{animation: animation 2.75s ease-in-out infinite;}
 .animation-animation{animation: animation-animation 2.75s ease-in-out infinite;}
+
+.img-profile{
+  width:40px;
+  margin-right: 10px;
+  border-radius: 14px;
+  position: relative;
+  top: 15px;
+}
+.img-user{
+  width:40px;
+  margin-right: 10px;
+  border-radius: 14px;
+}
 @keyframes animation {
   0%   { transform: translateY(0); }
   25%  { transform: translateY(-0.6em); }

@@ -3,11 +3,3 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-.img-profile{
-  width:40px;
-  margin-right: 10px;
-  border-radius: 14px;
-  position: relative;
-  top: 15px;
-}

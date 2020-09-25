@@ -340,7 +340,7 @@ class PaymentOffer extends React.Component{
                       this.state.order.courier==0?
                       <div className="row">
                         <div className="col s12">
-                          <a data-target="preorder" className="col s12 btn green accent-4 shadow-green modal-trigger waves-effect waves-light">Confirmar servicio</a>
+                          <a data-target="preorder" className="col s12 btn green accent-4 shadow-green modal-trigger waves-effect waves-light">Confirmar pedido</a>
                         </div>
                       </div>
                       :

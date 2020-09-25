@@ -14,6 +14,7 @@ export default function Package(props) {
   return(
     <div className="col s12 center">
       <h5 className="title grey-text text-darken-3">¿Qué paquete desea enviar?</h5>
+      <br/>
       <div className="cards-container">
         <Button title="Documentos" handleClick={()=>go("Documentos")} state={props.state}/>
         <Button title="Caja" handleClick={()=>go("Caja")} state={props.state}/>

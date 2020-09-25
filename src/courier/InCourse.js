@@ -24,6 +24,7 @@ import shield from './../assets/shield.svg'
 import whats from './../assets/actions/whatsapp.svg'
 import phone from './../assets/actions/phone.svg'
 
+import userimg from '../assets/charters/ToyFaces_Colored_BG_56.jpg'
 import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
 
 function getImg(title){
@@ -124,10 +125,14 @@ class InCourse extends React.Component{
     this.props.database.ref('order/'+this.state.key).set(this.state.order)
     //this.setState(this.state)
   }
-  finishOrder(){
+  deliveredOrder(){
+    this.state.order.step = 4
     this.state.order.tracking.dateCourierFinishOrder = new Date().toString()
-    this.props.database.ref('order/'+this.state.key).set(null)
+    this.props.database.ref('order/'+this.state.key).set(this.state.order)
+  }
+  finishOrder(){
     this.props.database.ref('orderhistory/'+this.state.key).set(this.state.order)
+    this.props.database.ref('order/'+this.state.key).set(null)
     M.toast({html:"Pedido finalizado"})
     this.props.history.push("/courier/orderhistory")
   }
@@ -227,14 +232,14 @@ class InCourse extends React.Component{
                       <div className="row">
                         <div className="col s2">
                           <div className="circle">
-                            <img className="responsive-img shadow-courier" src={courier} alt={"foto del mensajero"}/>
+                            <img className="responsive-img img-user shadow-pink" src={userimg}/>
                           </div>
                         </div>
-                        <div className="col s4 l6">
+                        <div className="col s5 l5">
                           <h5 className="no-margin">{this.state.user.name}</h5>
                           <span className="grey-text text-darken-2">Cliente</span>
                         </div>
-                        <div className="col s6 l4">
+                        <div className="col s5 l5">
                           <a href={"tel:"+this.state.user.phone} className="col s6"><img className="responsive-img shadow-action" src={phone} alt={"foto del mensajero"}/></a>
                           <a href={"https://api.whatsapp.com/send?phone="+this.state.user.phone+"&text=Hola "+this.state.user.name+""} className="col s6"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
                         </div>
@@ -310,9 +315,18 @@ class InCourse extends React.Component{
                         </div>
                       </div>
                       <div className={this.state.order.step>=3?"row":"row opacity-3"}>
-                        <div onClick={()=>this.finishOrder()} className={this.state.order.step>=3?"btn green accent-2 shadow-green waves-effect col s12":"btn primary disabled col s12"}>
+                        <div onClick={()=>this.deliveredOrder()} className={this.state.order.step>=3?"btn green accent-2 shadow-green waves-effect col s12":"btn primary disabled col s12"}>
                           Entregue el pedido
                         </div>
+                      </div>
+                      <div className="row">
+                        {
+                          this.state.order.step===4?
+                          <div onClick={()=>this.finishOrder()} className="btn primary waves-effect col s12">
+                            Finalizar el pedido
+                          </div>
+                          :null
+                        }
                       </div>
                     </div>
                   </div>

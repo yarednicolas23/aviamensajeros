@@ -9,16 +9,17 @@ function currencyFormat(price){
 
 export default function OrderHistory() {
   const [list,setList]=useState([])
-  const [courier] = useState(JSON.parse(localStorage.getItem('courier')))
+  const [user] = useState(JSON.parse(localStorage.getItem('user')))
   useEffect(() => {
     const getList = async()=>{
-      firebase.database().ref('orderhistory').orderByChild('courier').equalTo(courier.phone).on("value", function(snapshot) {
+      firebase.database().ref('orderhistory').orderByChild('user').equalTo(user.phone).on("value", function(snapshot) {
         var flist=[]
         setList([])
         snapshot.forEach(function(data) {
           var childData = data.val()
           childData.id= data.key
           flist.push(childData)
+          console.log(data.key);
         })
         setList(flist)
       })
@@ -44,8 +45,7 @@ export default function OrderHistory() {
           <tbody>
             {
               list.map((order,i)=>
-
-                <tr>
+                <tr key={i}>
                   <td>{order.package}</td>
                   <td>{moment(order.creation).format('DD MMM YYYY')}</td>
                   <td>{moment(order.creation).format('hh:mm A')}</td>

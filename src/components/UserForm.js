@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 
 export default function UserForm(props) {
   const [mail,setMail] = useState('')
   const [name,setName] = useState('')
   const [phone,setPhone] = useState('')
   const [userExist,setUserExist] = useState(false)
+  const [user] = useState(JSON.parse(localStorage.getItem('user')))
+
   const go =(event)=>{
     event.preventDefault()
     const data ={ mail:mail, name:name, phone:phone }
@@ -28,6 +30,14 @@ export default function UserForm(props) {
     }
     setPhone(phone)
   }
+  useEffect(() => {
+    if (user!=null) {
+      setName(user.name)
+      setMail(user.mail)
+      setPhone(user.phone)
+      setUserExist(true)
+    }
+  },[])
   return(
     <div className="row">
       <form className="col s12" onSubmit={go}>

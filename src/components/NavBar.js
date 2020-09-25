@@ -12,14 +12,14 @@ export default function NavBar() {
   let history = useHistory()
   const [courier] = useState(JSON.parse(localStorage.getItem('courier')))
   const [user] = useState(JSON.parse(localStorage.getItem('user')))
-
   document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.sidenav');
-    var instances = M.Sidenav.init(elems);
+    var elems = document.querySelectorAll('.sidenav')
+    M.Sidenav.init(elems)
   })
 
   const closeSession =()=>{
     localStorage.removeItem('courier')
+    localStorage.removeItem('user')
     //removeCookie('courier')
     history.push('/')
   }
@@ -36,7 +36,6 @@ export default function NavBar() {
                 <Link to="/courier/home" className="black-text">
                   <img className="responsive-img img-profile" src={courierimg} alt={"foto del mensajero"}/>
                   <span> {courier.name} </span>
-                  <div className="hide btn-floating btn-flat grey lighten-4"><i className="material-icons grey-text" style={{lineHeight:'inherit'}}>keyboard_arrow_down</i></div>
                 </Link>
               </li>
               <li>
@@ -46,13 +45,15 @@ export default function NavBar() {
             :
             user!=null?
             <>
-            <li style={{marginRight:60}}>
-              <Link to="/user/myorders" className="black-text">
-                <img className="responsive-img img-profile" src={userimg} alt={"foto del usuario"}/>
-                <span> {user.name} </span>
-                <div className="hide btn-floating btn-flat grey lighten-4"><i className="material-icons grey-text" style={{lineHeight:'inherit'}}>keyboard_arrow_down</i></div>
-              </Link>
-            </li>
+              <li>
+                <Link to="/user/myorders" className="black-text">
+                  <img className="responsive-img img-profile" src={userimg} alt={"foto del usuario"}/>
+                  <span> {user.name} </span>
+                </Link>
+              </li>
+              <li>
+                <a data-target="slide-out" className="sidenav-trigger black-text" style={{display:'block'}}><i className="material-icons">menu</i></a>
+              </li>
             </>
             :
             <>
@@ -66,23 +67,48 @@ export default function NavBar() {
           }
         </ul>
       </div>
-      <ul id="slide-out" className="sidenav">
-        <li>
-          <div className="user-view">
-            <div className="background">
-              <img src={courierimg}/>
+      {
+        courier!=null?
+        <ul id="slide-out" className="sidenav">
+          <li>
+            <div className="user-view">
+              <div className="background">
+                <img src={courierimg}/>
+              </div>
+              <a href="#user"><img className="circle" src={courierimg}/></a>
+              <a href="#name"><span className="white-text name">{courier.name}</span></a>
+              <a href="#email"><span className="white-text email">{courier.mail}</span></a>
             </div>
-            <a href="#user"><img className="circle" src={courierimg}/></a>
-            <a href="#name"><span className="white-text name">{courier.name}</span></a>
-            <a href="#email"><span className="white-text email">{courier.mail}</span></a>
-          </div>
-        </li>
-        <li><Link to="/courier/home"><i className="material-icons">home</i>Home</Link></li>
-        <li><Link to="/courier/orders"><i className="material-icons">moped</i>Orders</Link></li>
-        <li><Link to="/courier/orderhistory"><i className="material-icons">history</i>Order history</Link></li>
-        <li><div className="divider"></div></li>
-        <li><a onClick={()=>closeSession()}><i className="material-icons">close</i>Close session</a></li>
-      </ul>
+          </li>
+          <li><Link to="/courier/home"><i className="material-icons">home</i>Home</Link></li>
+          <li><Link to="/courier/orders"><i className="material-icons">moped</i>Orders</Link></li>
+          <li><Link to="/courier/orderhistory"><i className="material-icons">history</i>Order history</Link></li>
+          <li><div className="divider"></div></li>
+          <li><a onClick={()=>closeSession()}><i className="material-icons">close</i>Close session</a></li>
+        </ul>
+        :null
+      }
+      {
+        user!=null?
+        <ul id="slide-out" className="sidenav">
+          <li>
+            <div className="user-view">
+              <div className="background">
+                <img src={userimg}/>
+              </div>
+              <a href="#user"><img className="circle" src={userimg}/></a>
+              <a href="#name"><span className="white-text name">{user.name}</span></a>
+              <a href="#email"><span className="white-text email">{user.mail}</span></a>
+            </div>
+          </li>
+          <li><Link to="/user/myorders"><i className="material-icons">home</i>Mis pedidos</Link></li>
+          <li><Link to="/user/orderhistory"><i className="material-icons">history</i>Historial de pedidos</Link></li>
+          <li><div className="divider"></div></li>
+          <li><a onClick={()=>closeSession()}><i className="material-icons">close</i>Close session</a></li>
+        </ul>
+        :null
+      }
+
     </nav>
   )
 }
