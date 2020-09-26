@@ -86,7 +86,8 @@ class PaymentOffer extends React.Component{
         city:localStorage.getItem('city'),
         road:JSON.parse(localStorage.getItem('road')),
         courier:0,
-        user:0
+        user:0,
+        step:0
       }
     })
     var elems = document.querySelectorAll('.modal')

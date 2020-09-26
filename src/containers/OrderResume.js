@@ -150,7 +150,7 @@ export default function OrderResume() {
               <div className="row">
                 <div className="col s2">
                   <div className="circle">
-                    <img className="responsive-img shadow-type" src={getImg(order.when)} alt={order.when}/>
+                    <img className="responsive-img shadow-type" src={getImg(order.when!='Ahora'?'Agendar':'Ahora')} alt={order.when}/>
                   </div>
                 </div>
                 <div className="col s10">
@@ -164,9 +164,9 @@ export default function OrderResume() {
                     <img className="responsive-img shadow-city" src={getImg(order.pay)} alt={order.paymentoffer}/>
                   </div>
                 </div>
-                <div className="col s6">
+                <div className="col s8">
                   <h5 className="no-margin">{currencyFormat(order.paymentoffer)}</h5>
-                  <span className="grey-text text-darken-2">{order.pay}</span>
+                  <span className="grey-text text-darken-2">Pago en {order.pay} {order.road.paymentInOrigin?<b>(Pago en origen)</b>:null}</span>
                 </div>
               </div>
             </div>

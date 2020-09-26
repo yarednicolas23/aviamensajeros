@@ -23,7 +23,7 @@ export default function How(props) {
   const calendar =()=>{
     setOption('date')
     var elems = document.querySelectorAll('.datepicker')
-    M.Datepicker.init(elems,{onClose:()=>clock(),onSelect:(e)=>setDate(e.toString())})
+    M.Datepicker.init(elems,{onClose:()=>clock(),onSelect:(e)=>setDate(e.toString()),minDate:new Date()})
     var instance = M.Datepicker.getInstance(document.getElementById("picker"))
     instance.open()
   }

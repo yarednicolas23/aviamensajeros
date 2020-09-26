@@ -15,7 +15,8 @@ import money from './../assets/money.svg'
 import from from './../assets/from.svg'
 import distance from './../assets/distance.svg'
 import clock from './../assets/clock.svg'
-import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
+import information from './../assets/informacion.svg'
+import courierimg from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
 
 function getImg(title){
   if (title==='Liviano'){return motorcycle}
@@ -90,12 +91,20 @@ export default function MyOrders(props) {
                   <div className="row">
                     <div className="col s2">
                       <div className="circle">
-                        <img className="responsive-img shadow-courier circle" src={courier}/>
+                        <img className="responsive-img shadow-blue circle" src={information}/>
                       </div>
                     </div>
                     <div className="col s10">
-                      <h6 className="no-margin">Sin mensajero</h6>
-                      <span className="grey-text text-darken-2">Mensajero</span>
+                      <h6 className="no-margin">
+                        {
+                          order.step===0?"Sin asignar"
+                          :order.step===1?"Mensajero en camino"
+                          :order.step===2?"Llego el mensajero"
+                          :order.step===3?"Mensajero va al destino"
+                          :order.step===4?"Termino el pedido":null
+                        }
+                      </h6>
+                      <span className="grey-text text-darken-2">Estado</span>
                     </div>
                   </div>
                   <div className="row">
@@ -126,9 +135,9 @@ export default function MyOrders(props) {
                         <img className="responsive-img shadow-city" src={getImg(order.pay)} alt={order.paymentoffer}/>
                       </div>
                     </div>
-                    <div className="col s4 l4">
+                    <div className="col s10 l10">
                       <h6 className="no-margin">{currencyFormat(order.paymentoffer)}</h6>
-                      <span className="grey-text text-darken-2">{order.pay}</span>
+                      <span className="grey-text text-darken-2">Pago en {order.pay} {order.road.paymentInOrigin?<b>(Pago en origen)</b>:null}</span>
                     </div>
                   </div>
 

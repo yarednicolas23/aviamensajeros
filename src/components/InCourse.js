@@ -65,7 +65,7 @@ class InCourse extends React.Component{
         name:"",
         phone:""
       },
-      count:5,
+      count:20,
       suggets:false,
       undo:false,
       key:'',
@@ -99,11 +99,9 @@ class InCourse extends React.Component{
           this.state.order=snap.val()
           this.setState(this.state)
           if (snap.val().courier!==0) {
-            if (snap.val().courier!=null) {
-              this.getCourier(snap.val().courier)
-              this.state.loader.order=false
-              setTimeout(()=> {instance.close()}, 2000)
-            }
+            this.getCourier(snap.val().courier)
+            this.state.loader.order=false
+            setTimeout(()=> {instance.close()}, 2000)
           }
         }
       })
@@ -225,7 +223,7 @@ class InCourse extends React.Component{
                   <div className="row">
                     <div className="col s2">
                       <div className="circle">
-                        <img className="responsive-img shadow-type" src={getImg(this.state.order.when)} alt={this.state.order.when}/>
+                        <img className="responsive-img shadow-type" src={getImg(this.state.order.when!='Ahora'?'Agendar':'Ahora')} alt={this.state.order.when}/>
                       </div>
                     </div>
                     <div className="col s10">
@@ -241,7 +239,7 @@ class InCourse extends React.Component{
                     </div>
                     <div className="col s6">
                       <h5 className="no-margin">{this.currencyFormat(this.state.order.paymentoffer)}</h5>
-                      <span className="grey-text text-darken-2">{this.state.order.pay}</span>
+                      <span className="grey-text text-darken-2">Pago en {this.state.order.pay} {this.state.order.road.paymentInOrigin?<b>(Pago en origen)</b>:null}</span>
                     </div>
                   </div>
                 </div>
@@ -268,7 +266,7 @@ class InCourse extends React.Component{
                       </div>
                       <div className="col s6 l4">
                         <a href={"tel:"+this.state.user.phone} className="col s6"><img className="responsive-img shadow-action" src={phone} alt={"foto del mensajero"}/></a>
-                        <a href={"https://api.whatsapp.com/send?phone="+this.state.user.phone+"&text=Hola "+this.state.user.name+""} className="col s6"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
+                        <a href={"https://api.whatsapp.com/send?phone="+this.state.user.phone+"&text=Hola "+this.state.user.name+""} target="_blank" className="col s6"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
                       </div>
                     </div>
                     <div className="row">

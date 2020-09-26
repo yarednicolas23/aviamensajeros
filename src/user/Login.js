@@ -23,6 +23,7 @@ export default function Login(){
           }else {
             localStorage.setItem('user', response)
             history.push('/user/myorders')
+            history.go(0)
           }
         }else {
           M.toast({html:"Usuario no existe"})

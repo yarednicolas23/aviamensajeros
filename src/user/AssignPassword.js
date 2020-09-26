@@ -8,7 +8,7 @@ export default function AssignPassword(props) {
   const [ userPhone ] = useState(phone)
   const [ mail,setMail ] = useState()
   const [ password,setPassword ] = useState()
-  const getUser = () =>{
+  const getUser =async () =>{
     fetch('http://localhost:8080/user/get/secret', {
       method: 'POST',
       headers: {'Accept': 'application/json','Content-Type': 'application/json'},
@@ -56,8 +56,7 @@ export default function AssignPassword(props) {
           M.toast({html:"Tu clave fue asignada, ahora puedes iniciar sesión"})
           setTimeout(function () {
             history.push('/')
-          }, 2000);
-
+          }, 1000)
         }else {
           M.toast({html:"algo salio mal, por favor recarga la pagina"})
         }
@@ -89,8 +88,7 @@ export default function AssignPassword(props) {
           </div>
           <div className="input-field">
             <i className="material-icons prefix">lock</i>
-            <input id="password" type="password" className="validate" value={password} onChange={e => setPassword(e.target.value)}/>
-            <label>Clave</label>
+            <input id="password" type="password" placeholder="Clave nueva" className="validate" value={password} onChange={e => setPassword(e.target.value)}/>
           </div>
 
           <div className="col s12">

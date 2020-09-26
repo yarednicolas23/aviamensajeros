@@ -12,7 +12,7 @@ export default function OrderHistory() {
   const [user] = useState(JSON.parse(localStorage.getItem('user')))
   useEffect(() => {
     const getList = async()=>{
-      firebase.database().ref('orderhistory').orderByChild('user').equalTo(user.phone).on("value", function(snapshot) {
+      firebase.database().ref('orderhistory').orderByChild('user').equalTo(parseInt(user.phone)).on("value", function(snapshot) {
         var flist=[]
         setList([])
         snapshot.forEach(function(data) {
