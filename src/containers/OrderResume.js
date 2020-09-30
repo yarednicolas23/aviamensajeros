@@ -17,12 +17,13 @@ import timer from './../assets/timer.svg'
 import clock from './../assets/clock.svg'
 import packageDone from './../assets/package-done.svg'
 import shield from './../assets/shield.svg'
+import creditcard from './../assets/tarjeta-de-debito.svg'
 import whats from './../assets/actions/whatsapp.svg'
 import phone from './../assets/actions/phone.svg'
 import userimg from '../assets/charters/ToyFaces_Colored_BG_56.jpg'
 
 function getImg(title){
-  if (title==='Liviano'){return motorcycle}
+  if (title==='Diligencia'){return motorcycle}
   if (title==='Pesado'){return moverTruck}
   if (title==='Documentos'){return envelope}
   if (title==='Caja'){return box}
@@ -31,6 +32,7 @@ function getImg(title){
   if (title==='Efectivo'){return money}
   if (title==='location'){return location}
   if (title==='distance'){return distance}
+  if (title==='Tarjeta'){return creditcard}
 }
 
 function currencyFormat(price){

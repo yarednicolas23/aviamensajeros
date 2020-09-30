@@ -8,6 +8,7 @@ import globe from './../assets/globe.svg'
 import fastDelivery from './../assets/fast-delivery.svg'
 import calendar from './../assets/delivery-24.svg'
 import money from './../assets/money.svg'
+import creditcard from './../assets/tarjeta-de-debito.svg'
 
 export default class Button extends React.Component{
   constructor(props){
@@ -15,7 +16,7 @@ export default class Button extends React.Component{
     this.props=props
   }
   getImg(title){
-    if (this.props.title==='Encargo'){return motorcycle}
+    if (this.props.title==='Diligencia'){return motorcycle}
     if (this.props.title==='Pesado'){return moverTruck}
     if (this.props.title==='Documentos'){return envelope}
     if (this.props.title==='Caja'){return box}
@@ -24,6 +25,7 @@ export default class Button extends React.Component{
     if (this.props.title==='Bogotá'){return globe}
     if (this.props.title==='Medellín'){return globe}
     if (this.props.title==='Efectivo'){return money}
+    if (this.props.title==='Credito/Debito'){return creditcard}
   }
   handleClick(){
     /*

@@ -20,7 +20,7 @@ import timer from './../assets/timer.svg'
 import clock from './../assets/clock.svg'
 import packageDone from './../assets/package-done.svg'
 import shield from './../assets/shield.svg'
-
+import creditcard from './../assets/tarjeta-de-debito.svg'
 import whats from './../assets/actions/whatsapp.svg'
 import phone from './../assets/actions/phone.svg'
 
@@ -39,6 +39,7 @@ function getImg(title){
   if (title==='Efectivo'){return money}
   if (title==='location'){return location}
   if (title==='distance'){return distance}
+  if (title==='Tarjeta'){return creditcard}
 }
 
 class InCourse extends React.Component{

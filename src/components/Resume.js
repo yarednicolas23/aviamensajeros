@@ -19,6 +19,7 @@ import distance from './../assets/distance.svg'
 import timer from './../assets/timer.svg'
 import clock from './../assets/clock.svg'
 import packageDone from './../assets/package-done.svg'
+import creditcard from './../assets/tarjeta-de-debito.svg'
 
 import whats from './../assets/actions/whatsapp.svg'
 import phone from './../assets/actions/phone.svg'
@@ -27,7 +28,7 @@ import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
 
 function getImg(title){
   if (title==='Liviano'){return motorcycle}
-  if (title==='Encargo'){return motorcycle}
+  if (title==='Diligencia'){return motorcycle}
   if (title==='Pesado'){return moverTruck}
   if (title==='Documentos'){return envelope}
   if (title==='Caja'){return box}
@@ -36,6 +37,7 @@ function getImg(title){
   if (title==='Bogotá'){return globe}
   if (title==='Medellín'){return globe}
   if (title==='Efectivo'){return money}
+  if (title==='Tarjeta'){return creditcard}
   if (title==='location'){return location}
   if (title==='distance'){return distance}
 }

@@ -22,7 +22,7 @@ import packageDone from './../assets/package-done.svg'
 import shield from './../assets/shield.svg'
 import whats from './../assets/actions/whatsapp.svg'
 import phone from './../assets/actions/phone.svg'
-
+import creditcard from './../assets/tarjeta-de-debito.svg'
 import courier from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
 
 function getImg(title){
@@ -37,6 +37,7 @@ function getImg(title){
   if (title==='Efectivo'){return money}
   if (title==='location'){return location}
   if (title==='distance'){return distance}
+  if (title==='Tarjeta'){return creditcard}
 }
 
 
@@ -108,6 +109,7 @@ class InCourse extends React.Component{
     }
   }
   getCourier(id){
+    console.log(id);
     this.props.database.ref('courier/'+id).on('value',(snapshot)=>{
       if(snapshot.val()!==null) {
         this.state.courier={mail:snapshot.val().mail,name:snapshot.val().name,phone:snapshot.val().phone}

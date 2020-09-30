@@ -93,6 +93,9 @@ export default class Home extends React.Component {
             </div>
           </div>
         </div>
+        <footer>
+          Iconos diseñados por <a href="https://www.flaticon.es/autores/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.es/" title="Flaticon"> www.flaticon.es</a>
+        </footer>
       </div>
     );
   }

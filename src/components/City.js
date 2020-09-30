@@ -5,6 +5,8 @@ import {
 
 import Button from './Button'
 
+//<Button title="Medellín" handleClick={()=>go("Medellín")} state={props.state}/>
+
 export default function City(props) {
   let history = useHistory();
   const go =(data)=>{
@@ -16,7 +18,6 @@ export default function City(props) {
       <h3 className="title grey-text text-darken-3">Seleccione la cuidad</h3>
         <div className="cards-container">
         <Button title="Bogotá" handleClick={()=>go("Bogotá")} state={props.state}/>
-        <Button title="Medellín" handleClick={()=>go("Medellín")} state={props.state}/>
       </div>
     </div>
   )

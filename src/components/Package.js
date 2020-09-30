@@ -18,7 +18,7 @@ export default function Package(props) {
       <div className="cards-container">
         <Button title="Documentos" handleClick={()=>go("Documentos")} state={props.state}/>
         <Button title="Caja" handleClick={()=>go("Caja")} state={props.state}/>
-        <Button title="Encargo" handleClick={()=>go("Encargo")} state={props.state}/>
+        <Button title="Diligencia" handleClick={()=>go("Diligencia")} state={props.state}/>
       </div>
     </div>
   )

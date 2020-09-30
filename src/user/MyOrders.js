@@ -19,7 +19,7 @@ import information from './../assets/informacion.svg'
 import courierimg from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
 
 function getImg(title){
-  if (title==='Liviano'){return motorcycle}
+  if (title==='Diligencia'){return motorcycle}
   if (title==='Pesado'){return moverTruck}
   if (title==='Documentos'){return envelope}
   if (title==='Caja'){return box}

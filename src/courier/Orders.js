@@ -16,8 +16,10 @@ import money from './../assets/money.svg'
 import from from './../assets/from.svg'
 import distance from './../assets/distance.svg'
 import clock from './../assets/clock.svg'
+import creditcard from './../assets/tarjeta-de-debito.svg'
 
 function getImg(title){
+  if (title==='Diligencia'){return motorcycle}
   if (title==='Liviano'){return motorcycle}
   if (title==='Pesado'){return moverTruck}
   if (title==='Documentos'){return envelope}
@@ -27,6 +29,7 @@ function getImg(title){
   if (title==='Bogotá'){return globe}
   if (title==='Medellín'){return globe}
   if (title==='Efectivo'){return money}
+  if (title==='Tarjeta'){return creditcard}
 }
 function currencyFormat(price){
   return price.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
