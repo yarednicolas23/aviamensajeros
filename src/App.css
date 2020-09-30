@@ -45,6 +45,7 @@ body{font-family: 'Poppins', sans-serif!important;}
 .shadow-purple{filter:drop-shadow(1px 1px 6px #a996eb)}
 .shadow-yellow{filter: drop-shadow(2px 2px 8px #dea861)}
 .shadow-pink{filter: drop-shadow(2px 2px 8px #e91e63)}
+.shadow-grey{filter: drop-shadow(2px 2px 8px #4e5462)}
 .shadow-courier{filter: drop-shadow(2px 2px 8px #1b212f);height:45px!important}
 .shadow-action{filter: drop-shadow(2px 2px 8px #8ce1eb);height:40px!important}
 .cards-container{
@@ -151,6 +152,11 @@ nav{box-shadow: none !important}
   border-radius: 14px;
   position: relative;
   top: 15px;
+}
+
+.img-bordered{
+  margin-right: 10px;
+  border-radius:100px;
 }
 .img-user{
   width:40px;
