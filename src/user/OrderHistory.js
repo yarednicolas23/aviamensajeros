@@ -39,6 +39,7 @@ export default function OrderHistory() {
                 <th>Tipo de pago</th>
                 <th>Valor del pago</th>
                 <th>Estado</th>
+                <th>Detalle</th>
             </tr>
           </thead>
 
@@ -52,6 +53,7 @@ export default function OrderHistory() {
                   <td>{order.pay}</td>
                   <td>{'$ '+currencyFormat(order.paymentoffer)}</td>
                   {order.step===4?<td className="green-text">Finalizado</td>:null}
+                  <td>Ver más</td>
                 </tr>
               )
             }

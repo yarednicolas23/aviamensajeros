@@ -8,7 +8,7 @@ export default function Login(){
   const [ password,setPassword ] = useState()
   const submit=(event)=> {
     event.preventDefault()
-    fetch('http://localhost:8080/user/login', {
+    fetch('https://apimens.firebaseapp.com/user/login', {
       method: 'POST',
       headers: {'Accept': 'application/json','Content-Type': 'application/json'},
       body: JSON.stringify({phone:phone,password:password})

@@ -22,6 +22,7 @@ export default function NavBar() {
     localStorage.removeItem('user')
     //removeCookie('courier')
     history.push('/')
+    history.go(0)
   }
   return (
     <nav className="row white no-margin">
@@ -80,11 +81,11 @@ export default function NavBar() {
               <a href="#email"><span className="white-text email">{courier.mail}</span></a>
             </div>
           </li>
-          <li><Link to="/courier/home"><i className="material-icons-outlined">home</i>Home</Link></li>
-          <li><Link to="/courier/orders"><i className="material-icons-outlined">moped</i>Orders</Link></li>
-          <li><Link to="/courier/orderhistory"><i className="material-icons-outlined">history</i>Order history</Link></li>
+          <li><Link to="/courier/home"><i className="material-icons-outlined">timer</i>Pedidos en curso</Link></li>
+          <li><Link to="/courier/orders"><i className="material-icons-outlined">moped</i>Pedidos</Link></li>
+          <li><Link to="/courier/orderhistory"><i className="material-icons-outlined">history</i>Historial de pedidos</Link></li>
           <li><div className="divider"></div></li>
-          <li><a onClick={()=>closeSession()}><i className="material-icons-outlined">close</i>Close session</a></li>
+          <li><a onClick={()=>closeSession()}><i className="material-icons-outlined">close</i>Cerrar sesión</a></li>
         </ul>
         :null
       }

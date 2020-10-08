@@ -38,7 +38,7 @@ body{font-family: 'Poppins', sans-serif!important;}
 .card .circle{width:40px;height:40px}
 .card .circle img{height:40px;margin:5px}
 .shadow-city{filter: drop-shadow(1px 1px 6px #08d6ac)}
-.shadow-road-from{filter: drop-shadow(1px 1px 6px #ff5665)}
+.shadow-road-from{filter: drop-shadow(1px 1px 6px #A492E6)}
 .shadow-road-to{filter: drop-shadow(1px 1px 6px #ff5665)}
 .shadow-type{filter: drop-shadow(2px 2px 8px #dea861)}
 .shadow-moto{filter: drop-shadow(2px 2px 8px #d5cdf0)}
@@ -162,6 +162,11 @@ nav{box-shadow: none !important}
   width:40px;
   margin-right: 10px;
   border-radius: 14px;
+}
+@media only screen and (max-width: 360px){
+  .brand-logo{
+    font-size: 1.8rem !important;
+  }
 }
 @keyframes animation {
   0%   { transform: translateY(0); }

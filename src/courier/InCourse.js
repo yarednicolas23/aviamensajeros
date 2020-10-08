@@ -121,6 +121,16 @@ class InCourse extends React.Component{
       }
     })
   }
+  courierArrived(){
+    this.state.order.step=2
+    this.state.order.tracking.timeCourierArrived= new Date().toString()
+    this.props.database.ref('order/'+this.state.key).set(this.state.order)
+  }
+  courierInCourse(){
+    this.state.order.step=3
+    this.state.order.tracking.timeCourierInCourse= new Date().toString()
+    this.props.database.ref('order/'+this.state.key).set(this.state.order)
+  }
   updateStep(step){
     this.state.order.step=step
     this.props.database.ref('order/'+this.state.key).set(this.state.order)
@@ -241,8 +251,8 @@ class InCourse extends React.Component{
                           <span className="grey-text text-darken-2">Cliente</span>
                         </div>
                         <div className="col s5 l5">
-                          <a href={"tel:"+this.state.user.phone} className="col s6"><img className="responsive-img shadow-action" src={phone} alt={"foto del mensajero"}/></a>
-                          <a href={"https://api.whatsapp.com/send?phone="+this.state.user.phone+"&text=Hola "+this.state.user.name+""} target="_blank" className="col s6"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
+                          <a href={"tel:"+this.state.user.phone} className="col s6 no-padding"><img className="responsive-img shadow-action" src={phone} alt={"foto del mensajero"}/></a>
+                          <a href={"https://api.whatsapp.com/send?phone="+this.state.user.phone+"&text=Hola "+this.state.user.name+""} className="col s6 no-padding" target="_blank"><img className="responsive-img shadow-action" src={whats} alt={"foto del mensajero"}/></a>
                         </div>
                       </div>
                       <div className="row">
@@ -279,11 +289,17 @@ class InCourse extends React.Component{
                           </div>
                         </div>
                         <div className="col s8">
-                          <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).add(20, 'minutes').format('hh:mm A') }</h5>
-                          <span className="grey-text text-darken-2">Hora de llegada del mensajero</span>
+                          <h5 className="no-margin">
+                            {
+                              this.state.order.step>=2?
+                              moment(this.state.order.tracking.timeCourierArrived).format('hh:mm A')
+                              :moment(this.state.order.tracking.dateCourierTakeOrder).add(20, 'minutes').format('hh:mm A')
+                            }
+                          </h5>
+                          <span className="grey-text text-darken-2">{this.state.order.step>=2?"Llegaste a las":"Hora estimada de llegada lugar"}</span>
                         </div>
                         <div className="col s2">
-                          <div onClick={()=>this.updateStep(2)} className={this.state.order.step>=2?"btn-floating btn-flat green accent-2":"btn-floating btn-flat grey lighten-4"}>
+                          <div onClick={()=>this.courierArrived()} className={this.state.order.step>=2?"btn-floating btn-flat green accent-2":"btn-floating btn-flat grey lighten-4"}>
                             <i className={this.state.order.step>=2?"material-icons green-text":"material-icons grey-text"}>check</i>
                           </div>
                         </div>
@@ -295,11 +311,17 @@ class InCourse extends React.Component{
                           </div>
                         </div>
                         <div className="col s8">
-                          <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).add(30, 'minutes').format('hh:mm A') }</h5>
+                          <h5 className="no-margin">
+                            {
+                              this.state.order.step>=3?
+                              moment(this.state.order.tracking.timeCourierInCourse).format('hh:mm A')
+                              :moment(this.state.order.tracking.dateCourierTakeOrder).add(30, 'minutes').format('hh:mm A')
+                            }
+                          </h5>
                           <span className="grey-text text-darken-2">Pedido en curso</span>
                         </div>
                         <div className="col s2">
-                          <div onClick={()=>this.updateStep(3)} className={this.state.order.step>=3?"btn-floating btn-flat green accent-2":"btn-floating btn-flat grey lighten-4"}>
+                          <div onClick={()=>this.courierInCourse()} className={this.state.order.step>=3?"btn-floating btn-flat green accent-2":"btn-floating btn-flat grey lighten-4"}>
                             <i className={this.state.order.step>=3?"material-icons green-text":"material-icons grey-text"}>check</i>
                           </div>
                         </div>
@@ -311,7 +333,13 @@ class InCourse extends React.Component{
                           </div>
                         </div>
                         <div className="col s6">
-                          <h5 className="no-margin">{moment(this.state.order.tracking.dateCourierTakeOrder).add(50, 'minutes').format('hh:mm A') }</h5>
+                          <h5 className="no-margin">
+                            {
+                              this.state.order.step>=4?
+                              moment(this.state.order.tracking.dateCourierFinishOrder).format('hh:mm A')
+                              :moment(this.state.order.tracking.dateCourierTakeOrder).add(50, 'minutes').format('hh:mm A')
+                            }
+                          </h5>
                           <span className="grey-text text-darken-2">Tiempo de entrega</span>
                         </div>
                       </div>

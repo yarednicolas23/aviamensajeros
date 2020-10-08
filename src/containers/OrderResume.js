@@ -46,7 +46,7 @@ export default function OrderResume() {
   const [user,setUser]=useState({name:""})
 
   const takeOrder=()=>{
-    order.courier=courier
+    order.courier=courier.phone
     order.step=1
     order.tracking={dateCourierTakeOrder:new Date().toString()}
     firebase.database().ref('order/'+id).set(order)
@@ -93,8 +93,8 @@ export default function OrderResume() {
                   <span className="grey-text text-darken-2">Cliente</span>
                 </div>
                 <div className="col s5">
-                  <a href={"tel:"+user.phone} className="col s6"><img className="responsive-img shadow-action" src={phone}/></a>
-                  <a href={"https://api.whatsapp.com/send?phone="+user.phone+"&text=Hola "+user.name+""} target="_blank" className="col s6"><img className="responsive-img shadow-action" src={whats}/></a>
+                  <a href={"tel:"+user.phone} className="col s6 no-padding"><img className="responsive-img shadow-action" src={phone}/></a>
+                  <a href={"https://api.whatsapp.com/send?phone="+user.phone+"&text=Hola "+user.name+""} target="_blank" className="col s6 no-padding"><img className="responsive-img shadow-action" src={whats}/></a>
                 </div>
               </div>
             </div>

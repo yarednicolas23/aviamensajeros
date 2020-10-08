@@ -1,12 +1,10 @@
 import React,{useState} from 'react'
 import { useHistory } from 'react-router-dom'
-import { useCookies } from 'react-cookie'
 
 import M from 'materialize-css'
 
 export default function Register(props){
   let history = useHistory()
-  const [cookies, setCookie] = useCookies()
 
   const [phone,setPhone] = useState('')
   const [mail,setMail] = useState('')

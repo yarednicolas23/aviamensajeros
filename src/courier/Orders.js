@@ -122,6 +122,17 @@ export default function Orders(props) {
                     </div>
                   </div>
                   <div className="row">
+                    <div className="col s2">
+                      <div className="circle">
+                        <img className="responsive-img shadow-purple" src={order.when=='Ahora'?clock:calendar} alt={"hora de creación de la orden"}/>
+                      </div>
+                    </div>
+                    <div className="col s10">
+                      <h6 className="no-margin">{order.when=='Ahora'?'Ahora':order.when}</h6>
+                      <span className="grey-text text-darken-2">Tomar</span>
+                    </div>
+                  </div>
+                  <div className="row">
                     <div className="col s2 l2">
                       <div className="circle">
                         <img className="responsive-img shadow-city" src={getImg(order.pay)} alt={order.paymentoffer}/>

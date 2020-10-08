@@ -17,6 +17,7 @@ import distance from './../assets/distance.svg'
 import clock from './../assets/clock.svg'
 import information from './../assets/informacion.svg'
 import courierimg from './../assets/charters/ToyFaces_Tansparent_BG_29.png'
+import creditcard from './../assets/tarjeta-de-debito.svg'
 
 function getImg(title){
   if (title==='Diligencia'){return motorcycle}
@@ -28,6 +29,7 @@ function getImg(title){
   if (title==='Bogotá'){return globe}
   if (title==='Medellín'){return globe}
   if (title==='Efectivo'){return money}
+  if (title==='Tarjeta'){return creditcard}
 }
 function currencyFormat(price){
   return price.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
@@ -53,7 +55,6 @@ export default function MyOrders(props) {
     })
   }
   useEffect(() => {
-    console.log(user);
     getList()
   }, [])
   return(

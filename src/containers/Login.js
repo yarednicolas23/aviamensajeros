@@ -19,6 +19,9 @@ export default function Login(){
   const [phone,setPhone] =useState(undefined)
   //const [ setCookie ] = useCookies()
   let history = useHistory()
+  if (localStorage.getItem('courier')!=null) {
+    history.push('/courier/orders')
+  }
   //removeCookie('courier')
   //setCookie('couier',{name:"John Doe",mail:"johndoe@hotmail.com",phone:3212833647})
   useEffect(() => {
@@ -26,7 +29,7 @@ export default function Login(){
   },[])
   const submit=(event)=> {
     event.preventDefault()
-    fetch('http://localhost:8080/courier/login', {
+    fetch('https://apimens.firebaseapp.com/courier/login', {
       method: 'POST',
       headers: {'Accept': 'application/json','Content-Type': 'application/json'},
       body: JSON.stringify({phone:phone})
@@ -39,6 +42,7 @@ export default function Login(){
           localStorage.setItem('courier', response)
           //setCookie('courier',JSON.parse(response))
           history.push('/courier/orders')
+          history.go(0)
         }else {
           M.toast({html:"Usuario no existe"})
         }

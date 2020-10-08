@@ -37,14 +37,33 @@ export default function OrderHistory() {
   return(
     <div className="row">
       <div className="col s12">
+        <h5><b>Reporte de pedidos del día</b></h5>
+        <div className="row">
+          <div className="col s8 m1 l1">
+            <div className="col s12"><img className="responsive-img shadow-grey img-bordered" src={courierimg} alt={"foto del mensajero"}/></div>
+            <div className="col s12 center"><h5>{courier.name}</h5></div>
+          </div>
+          <div className="col s6 l2">
+            <div className="col s12"><h5>{'$ '+sales}</h5></div>
+            <div className="col s12 grey-text">Total</div>
+          </div>
+          <div className="col s6 l2">
+            <div className="col s12"><h5>{'$ '+comission}</h5></div>
+            <div className="col s12 grey-text">Comisión</div>
+          </div>
+          <div className="col s6 l2">
+            <div className="col s12"><h5>{list.length}</h5></div>
+            <div className="col s12 grey-text">Nº pedidos</div>
+          </div>
+        </div>
         <h5><b>Historial de pedidos</b></h5>
           <table>
           <thead>
             <tr>
                 <th>Tipo de paquete</th>
                 <th>Fecha</th>
-                <th>Hora</th>
-                <th>Tipo de pago</th>
+                <th className="hide">Hora</th>
+                <th className="hide">Tipo de pago</th>
                 <th>Valor del pago</th>
                 <th>Estado</th>
             </tr>
@@ -56,8 +75,8 @@ export default function OrderHistory() {
                 <tr key={i}>
                   <td>{order.package}</td>
                   <td>{moment(order.creation).format('DD MMM YYYY')}</td>
-                  <td>{moment(order.creation).format('hh:mm A')}</td>
-                  <td>{order.pay}</td>
+                  <td className="hide">{moment(order.creation).format('hh:mm A')}</td>
+                  <td className="hide">{order.pay}</td>
                   <td>{'$ '+currencyFormat(order.paymentoffer)}</td>
                   {order.step===4?<td className="green-text">Finalizado</td>:null}
                 </tr>
@@ -65,25 +84,6 @@ export default function OrderHistory() {
             }
           </tbody>
         </table>
-        <h5><b>Reporte de pedidos del día</b></h5>
-        <div className="row">
-          <div className="col s1">
-            <div className="col s12"><img className="responsive-img shadow-grey img-bordered" src={courierimg} alt={"foto del mensajero"}/></div>
-            <div className="col s12 center"><h5>{courier.name}</h5></div>
-          </div>
-          <div className="col s2">
-            <div className="col s12"><h5>{list.length}</h5></div>
-            <div className="col s12 grey-text">Nº pedidos</div>
-          </div>
-          <div className="col s2">
-            <div className="col s12"><h5>{'$ '+sales}</h5></div>
-            <div className="col s12 grey-text">Dinero recaudado</div>
-          </div>
-          <div className="col s2">
-            <div className="col s12"><h5>{'$ '+comission}</h5></div>
-            <div className="col s12 grey-text">Comisión</div>
-          </div>
-        </div>
       </div>
     </div>
   )
