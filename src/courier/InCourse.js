@@ -138,10 +138,11 @@ class InCourse extends React.Component{
   }
   deliveredOrder(){
     this.state.order.step = 4
-    this.state.order.tracking.dateCourierFinishOrder = new Date().toString()
+    this.state.order.tracking.dateCourierDeliveredOrder = new Date().toString()
     this.props.database.ref('order/'+this.state.key).set(this.state.order)
   }
   finishOrder(){
+    this.state.order.tracking.dateCourierFinishOrder = new Date().toString()
     this.props.database.ref('orderhistory/'+this.state.key).set(this.state.order)
     this.props.database.ref('order/'+this.state.key).set(null)
     M.toast({html:"Pedido finalizado"})
@@ -336,7 +337,7 @@ class InCourse extends React.Component{
                           <h5 className="no-margin">
                             {
                               this.state.order.step>=4?
-                              moment(this.state.order.tracking.dateCourierFinishOrder).format('hh:mm A')
+                              moment(this.state.order.tracking.dateCourierDeliveredOrder).format('hh:mm A')
                               :moment(this.state.order.tracking.dateCourierTakeOrder).add(50, 'minutes').format('hh:mm A')
                             }
                           </h5>

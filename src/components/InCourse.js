@@ -352,7 +352,7 @@ class InCourse extends React.Component{
                         <h5 className="no-margin">
                           {
                             this.state.order.step>=4?
-                            moment(this.state.order.tracking.dateCourierFinishOrder).format('hh:mm A')
+                            moment(this.state.order.tracking.dateCourierDeliveredOrder).format('hh:mm A')
                             :moment(this.state.order.tracking.dateCourierTakeOrder).add(50, 'minutes').format('hh:mm A')
                           }
                         </h5>
